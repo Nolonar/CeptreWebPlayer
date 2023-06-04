@@ -15,14 +15,6 @@ const engine = (() => {
         return await p;
     }
 
-    async function getCeptreFiles() {
-        const cepFiles = [
-            "pkmn",
-            "example"
-        ];
-        return cepFiles.map(value => `cep/${value}.cep`);
-    }
-
     function getRandomElement(array) {
         return array[Math.floor(Math.random() * array.length)];
     }
