@@ -1,0 +1,403 @@
+character : type.
+
+player: character.
+Trader_villager_A: character.
+Trader_villager_B: character.
+Trader_villager_C: character.
+Trader_villager_D: character.
+king : character.
+pegaso : character.
+ghost: character.
+
+names: type.
+
+Hercules : names.
+Ades : names.
+Afrodita: names.
+Megan: names.
+undefined: names.
+
+monster : type.
+
+cyclope : monster.
+King_kong : monster.
+oger: monster.
+wolf : monster.
+centauro : monster.
+dragon : monster.
+water_monster : monster.
+nemea_lion: monster.
+hydra: monster.
+medusa: monster.
+dark_witch : monster.
+
+ability : type.
+
+fly : ability.
+invisibility : ability.
+super_speed : ability.
+elasticity : ability.
+
+
+
+
+gender : type.
+
+male : gender.
+female : gender.
+undefined : gender.
+
+item : type.
+
+sword : item.
+bow_arrows : item.
+gigant_axe : item.
+thors_hammer: item.
+shield : item.
+
+boat: item.
+rubiks_cube: item.
+sun_glasses: item.
+music_box: item.
+Spell_book: item.
+love_potion: item.
+Mirror: item.
+Food: item.
+cookies: item.
+shoes: item.
+hair_brush: item.
+hermit_seed: item.
+backpack: item.
+
+locations : type.
+
+Magic_oasis : locations.
+swamp : locations.
+Happy_dale: locations.
+Village_of_braves: locations.
+Dungeon: locations.
+Far_claw: locations.
+Blitte_abbey: locations.
+Lark_cradle: locations.
+berlingaria: locations.
+Dragon's_Castle : locations.
+Helluvas_gates: locations.
+Ice_castle: locations.
+Hell_caldron: locations.
+Far_far_away: locations.
+
+
+gameover : pred.
+victory:pred.
+player_token : pred.
+cpu_token : pred.
+looking_around: pred.
+talking_to character : pred.
+fighting monster : pred.
+
+gender gender : pred.
+name names : pred.
+revert_c character locations : pred.
+seen_c character locations : pred.
+revert_m monster locations : pred.
+seen_m monster locations : pred.
+revert_i character locations : pred.
+seen_i item locations : pred.
+says character locations string : pred.
+gives character locations item : pred.
+takes character locations item : pred.
+giving_to monster : pred. 
+giving item : pred. 
+give_succes : pred.
+likes monster item string : pred.
+revert_route locations locations : pred.
+
+has_item character item : pred.
+is_weapon item : pred.
+has_health character numbers : pred.
+has_health_m monster numbers : pred.
+is_clear locations : pred.
+route locations locations : pred.
+at_location character locations : pred.
+at_location_m monster locations : pred.
+is_found item locations : pred.
+consumes character item : pred.
+
+stage setup = {
+    clear: route L1 L2 -o revert_route L1 L2 * is_clear L1.
+} #hidden setup.
+qui * stage setup -o stage post_setup.
+
+stage post_setup = {
+    unclear: is_clear L * $at_location_m M L -o ().
+    revert: revert_route L1 L2 -o route L1 L2.
+} #hidden post_setup.
+
+qui * stage post_setup -o
+    player_token *
+    stage character_creation *
+    gender undefined *
+    name undefined *
+    "Choose your gender".
+
+stage character_creation = {
+    "Male" : gender undefined -o gender male * "Choose your name".
+    "Female": gender undefined -o gender female * "Choose your name".
+    "Hercules": name undefined * $gender male -o name Hercules.
+    "Ades": name undefined * $gender male -o name Ades.
+    "Afrodita": name undefined * $gender female -o name Afrodita.
+    "Megan": name undefined * $gender female -o name Megan.
+}
+#interactive character_creation.
+
+qui * stage character_creation * $name N * $at_location player L -o stage main * "Hello, \[N]. You wake up at the \[L]!".
+
+stage main = {
+    "Look around": player_token -o looking_around.
+    "Talk to \[C]": player_token * $at_location player L * $at_location C L * seen_c C L -o talking_to C.
+    "Pick up \[I]": $player_token * $at_location player L * is_found I L * seen_i I L -o has_item player I * "You picked up a \[I].".
+    "Move to \[L2]": $player_token * at_location player L1 * $route L1 L2 * is_clear L1 * $has_health player HP -o at_location player L2 * "You moved to \[L2]. You have \[HP] HP left.".
+    "Fight \[M]": $player_token * $at_location player L * $at_location_m M L * seen_m M L -o stage battle.
+    "Give item to \[M]" : player_token * $has_item player backpack * $has_item player I * $at_location player L * $at_location_m M L * seen_m M L -o giving_to M. 
+}
+#interactive main.
+
+qui * stage main * looking_around -o stage lookaround.
+stage lookaround = {
+    see: $at_location player L * at_location C L -o seen_c C L * revert_c C L * "You see \[C].".
+    see: $at_location player L * at_location_m M L -o seen_m M L * revert_m M L * "You see \[M].".
+    see: $at_location player L * is_found I L -o seen_i I L * revert_i I L * "You see a \[I].".
+}
+#hidden lookaround.
+
+qui * stage lookaround -o stage post_lookaround.
+stage post_lookaround = {
+    revert: revert_c C L -o at_location C L.
+    revert: revert_m M L -o at_location_m M L.
+    revert: revert_i I L -o is_found I L.
+    cleanup: seen_c C L * $seen_c C L -o ().
+    cleanup: seen_m M L * $seen_m M L -o ().
+    cleanup: seen_i I L * $seen_i I L -o ().
+}
+#hidden post_lookaround.
+qui * stage post_lookaround -o stage main * player_token.
+
+qui * stage main * $giving_to M -o stage looked_backpack * player_token.
+
+stage looked_backpack = {
+    "Give \[I] to \[M]": $has_item player backpack * has_item player I * $giving_to M * player_token -o  giving I *  "You gave \[I].".
+}
+#interactive looked_backpack.
+
+qui * stage looked_backpack -o stage monster_has_I.
+stage monster_has_I = {
+    accept: giving_to M * giving I * at_location_m M L * likes M I S -o give_succes * is_clear L * "\[S]". 
+} #hidden monster_has_I.
+qui * stage monster_has_I * give_succes -o player_token * stage main.
+qui * stage monster_has_I * giving I * giving_to M -o stage battle * cpu_token * "The \[M] was not happy with the \[I], now you have to fight him".
+
+qui * stage main * $talking_to C -o stage talking.
+
+stage talking = {
+    speak: $talking_to C * says C L S * $at_location C L -o "\[S]".
+    receive: $talking_to C * gives C L I * $at_location C L -o has_item player I * "You receive a \[I]!".
+}
+#hidden talking.
+
+qui * stage talking -o stage post_talking.
+
+stage post_talking = {
+    cleanup: talking_to C * at_location C L -o ().
+}
+#hidden post_talking.
+qui * stage post_talking -o stage main * player_token.
+
+stage battle = {
+    player_move: $player_token * $has_item player shield * $has_item player I * is_weapon I -o stage battle_p.
+    cpu_move: $cpu_token -o stage battle_m.
+} #hidden battle.
+
+qui * stage battle -o stage gameover * "You don't have a weapon or shield, so you die.".
+stage gameover = {
+}
+
+stage battle_p = {
+    "Attack": player_token * $at_location player L * $at_location_m M L * has_health_m M HP -o has_health_m M HP-5 * "\[M] has \[HP] left. You deal 5 damage.".
+} #interactive battle_p.
+qui * stage battle_p -o stage battle_rule * cpu_token.
+
+stage battle_m = {
+    "\[M] attacks": cpu_token * $at_location player L * $at_location_m M L * has_health player HP -o has_health player HP-1 * "You have \[HP] left. \[M] deals 1 damage.".
+}
+qui * stage battle_m -o stage battle_rule * player_token.
+
+stage battle_rule = {
+    kill_player: has_health player 0 -o gameover * "You die".
+    kill_monster: has_health_m M 0 * at_location_m M L -o is_clear L * victory * "The \[M] dies. You win!".
+    cleanup: $gameover * player_token -o ().
+    cleanup: $gameover * cpu_token -o ().
+    cleanup: $victory * player_token -o ().
+    cleanup: $victory * cpu_token -o ().
+}#hidden battle_rule.
+
+qui * stage battle_rule * gameover -o "Game Over".
+qui * stage battle_rule * victory -o stage main * player_token.
+qui * stage battle_rule * $player_token -o stage battle_p.
+qui * stage battle_rule * $cpu_token -o stage battle_m.
+
+context location_setup = {
+    % Magic oasis
+    at_location player Magic_oasis,
+    at_location king Magic_oasis,
+    at_location Trader_villager_A Magic_oasis,
+
+    is_found backpack Magic_oasis,
+
+    % Happy Dale
+    at_location_m cyclope Happy_dale,
+    has_health_m cyclope 15,
+
+    % Swamp
+    at_location_m oger swamp,
+    has_health_m oger 15,
+
+    % Village_of_braves 
+    at_location_m wolf Village_of_braves,
+    has_health_m wolf 15,
+
+    %Blitte_abbey
+    at_location_m centauro Blitte_abbey,
+    has_health_m centauro 15,
+
+    %Far_claw
+    at_location_m water_monster Far_claw,
+    has_health_m water_monster 15, 
+
+    %Dungeon
+    at_location ghost Dungeon,
+
+
+    %Lark_cradle
+    at_location_m nemea_lion Lark_cradle,
+    at_location Trader_villager_B Lark_cradle, 
+    has_health_m nemea_lion 15,
+
+    %dragons_castle
+    at_location_m dragon dragons_castle, 
+    at_location king dragons_castle,
+    has_health_m dragon 15,
+
+    %berlingaria
+    at_location_m medusa berlingaria,
+    has_health_m medusa 15,
+
+    %Ice_castle
+    at_location_m King_kong Ice_castle,
+    at_location Trader_villager_D Ice_castle,
+    has_health_m King_kong 20,
+
+    %Helluvas_gates
+    at_location Trader_villager_C Helluvas_gates,
+    at_location pegaso Helluvas_gates,
+
+    %Hell_caldron
+    at_location_m hydra Hell_caldron,
+    has_health_m hydra 20,
+
+    %Far_far_away
+    at_location_m dark_witch Far_far_away,
+    has_health_m dark_witch 25,
+
+
+}
+
+context dialogues = {
+    says king Magic_oasis "Please, hero, take this sword and shield to save the kingdom!",
+    gives king Magic_oasis sword,
+    gives king Magic_oasis shield,
+
+    
+    says Trader_villager_A Magic_oasis "Hello hero here you have this two items .",
+    gives Trader_villager_A Magic_oasis sun_glasses,
+    gives Trader_villager_A Magic_oasis rubiks_cube,
+
+    %%%%%%%%%%%%% have to define for all villagers 
+
+    takes ghost Dungeon sword,
+    takes ghost Dungeon shield,
+    says ghost Dungeon "Oh no \[N] you have fall into the Dungeon you have to give me all your weapons to continue, otherwise i will take half of your life. besides you will be send to a random location. GOOD LUCK!!!"
+}
+
+context travel = {
+
+    %Magic_oasis
+    route Magic_oasis Happy_dale,
+    route Magic_oasis swamp,
+
+    %Happy_dale
+    route Happy_dale swamp,
+    route Happy_dale Village_of_braves,
+
+    %swamp
+    route swamp Far_claw,
+    route swamp Dungeon,
+
+    %Dungeon
+    route Dungeon Village_of_braves,
+    route Dungeon Far_claw,
+
+    %Village_of_braves
+    route Village_of_braves Blitte_abbey,
+
+    %Blitte_abbey
+    route Blitte_abbey Lark_cradle,
+
+    %Lark_cradle
+    route Lark_cradle berlingaria,
+    route Lark_cradle dragons_castle,
+
+    %Far_claw
+    route Far_claw dragons_castle,
+
+    %berlingaria
+    route berlingaria Ice_castle,
+
+    %dragons_castle
+    route dragons_castle Helluvas_gates,
+
+    %Ice_castle
+    route Ice_castle Hell_caldron,
+
+    %Helluvas_gates
+    route Helluvas_gates Hell_caldron,
+
+    %Hell_caldron
+    route Hell_caldron Far_far_away,
+}
+
+context character_status = {
+    has_health player 10
+}
+
+context monster_gifts = {
+    likes cyclope sun_glasses "The cyclope is happy put in on the sunglasses, he want to show them his friends so he leave.",
+    likes oger rubiks_cube "The oger liked the rubik's cube.",
+}
+
+context weapons = {
+    is_weapon sword,
+    is_weapon bow_arrows,
+    is_weapon gigant_axe,
+    is_weapon thors_hammer
+}
+
+context init = {
+    travel,
+    location_setup,
+    dialogues,
+    character_status,
+    monster_gifts,
+    weapons
+}
+
+#trace _ setup init.

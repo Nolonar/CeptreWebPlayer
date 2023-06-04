@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Ceptre Web Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="view.js" defer></script>
+    <script src="ceptre_parser.js" defer></script>
+    <script src="ceptre_engine.js" defer></script>
+    <script src="main.js" defer></script>
+    <script src="lib/filter.js"></script>
+    <script src="lib/naturalNumbers.js"></script>
+    <script src="lib/math.js"></script>
+</head>
+
+<body>
+    <h1>Ceptre Web Player</h1>
+    <div id="display"></div>
+    <div id="input-container">
+        <label for="input" id="prompt">What will you do?</label>
+        <select id="input" multiple disabled></select>
+        <div id="button-container">
+            <input type="submit" id="load" value="Edit Ceptre">
+            <input type="submit" id="submit" value="OK" disabled>
+            <input type="submit" id="restart" value="Restart">
+        </div>
+    </div>
+    <div id="ceptre-window" class="hidden">
+        <div>
+            <div type="button" class="btn-close"></div>
+            <label for="ceptre-code">Ceptre code</label>
+            <textarea id="ceptre-code" wrap="off"></textarea>
+            <label for="ceptre-file">Ceptre file</label>
+            <input type="file" id="ceptre-file" accept=".cep,text/plain">
+            <input type="submit" id="ceptre-submit" value="Load">
+        </div>
+    </div>
+</body>
+
+</html>

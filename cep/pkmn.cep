@@ -1,0 +1,1766 @@
+character: type.
+player:             character.
+Bill:               character.
+Professor_Oak:      character.
+bike_shop_owner:    character.
+
+pokemon_type: type.
+Normal:     pokemon_type.
+Fighting:   pokemon_type.
+Flying:     pokemon_type.
+Poison:     pokemon_type.
+Ground:     pokemon_type.
+Rock:       pokemon_type.
+Bug:        pokemon_type.
+Ghost:      pokemon_type.
+Fire:       pokemon_type.
+Water:      pokemon_type.
+Grass:      pokemon_type.
+Electric:   pokemon_type.
+Psychic:    pokemon_type.
+Ice:        pokemon_type.
+Dragon:     pokemon_type.
+
+pokemon_move: type.
+none:           pokemon_move.
+Pound:          pokemon_move.
+Karate_Chop:    pokemon_move.
+Double_Slap:    pokemon_move.
+Comet_Punch:    pokemon_move.
+Mega_Punch:     pokemon_move.
+Pay_Day:        pokemon_move.
+Fire_Punch:     pokemon_move.
+Ice_Punch:      pokemon_move.
+Thunder_Punch:  pokemon_move.
+Scratch:        pokemon_move.
+Vise_Grip:      pokemon_move.
+Guillotine:     pokemon_move.
+Razor_Wind:     pokemon_move.
+Swords_Dance:   pokemon_move.
+Cut:            pokemon_move.
+Gust:           pokemon_move.
+Wing_Attack:    pokemon_move.
+Whirlwind:      pokemon_move.
+Fly:            pokemon_move.
+Bind:           pokemon_move.
+Slam:           pokemon_move.
+Vine_Whip:      pokemon_move.
+Stomp:          pokemon_move.
+Double_Kick:    pokemon_move.
+Mega_Kick:      pokemon_move.
+Jump_Kick:      pokemon_move.
+Rolling_Kick:   pokemon_move.
+Sand_Attack:    pokemon_move.
+Headbutt:       pokemon_move.
+Horn_Attack:    pokemon_move.
+Fury_Attack:    pokemon_move.
+Horn_Drill:     pokemon_move.
+Tackle:         pokemon_move.
+Body_Slam:      pokemon_move.
+Wrap:           pokemon_move.
+Take_Down:      pokemon_move.
+Thrash:         pokemon_move.
+Double-Edge:    pokemon_move.
+Tail_Whip:      pokemon_move.
+Poison_Sting:   pokemon_move.
+Twineedle:      pokemon_move.
+Pin_Missile:    pokemon_move.
+Leer:           pokemon_move.
+Bite:           pokemon_move.
+Growl:          pokemon_move.
+Roar:           pokemon_move.
+Sing:           pokemon_move.
+Supersonic:     pokemon_move.
+Sonic_Boom:     pokemon_move.
+Disable:        pokemon_move.
+Acid:           pokemon_move.
+Ember:          pokemon_move.
+Flamethrower:   pokemon_move.
+Mist:           pokemon_move.
+Water_Gun:      pokemon_move.
+Hydro_Pump:     pokemon_move.
+Surf:           pokemon_move.
+Ice_Beam:       pokemon_move.
+Blizzard:       pokemon_move.
+Psybeam:        pokemon_move.
+Bubble_Beam:    pokemon_move.
+Aurora_Beam:    pokemon_move.
+Hyper_Beam:     pokemon_move.
+Peck:           pokemon_move.
+Drill_Peck:     pokemon_move.
+Submission:     pokemon_move.
+Low_Kick:       pokemon_move.
+Counter:        pokemon_move.
+Seismic_Toss:   pokemon_move.
+Strength:       pokemon_move.
+Absorb:         pokemon_move.
+Mega_Drain:     pokemon_move.
+Leech_Seed:     pokemon_move.
+Growth:         pokemon_move.
+Razor_Leaf:     pokemon_move.
+Solar_Beam:     pokemon_move.
+Poison_Powder:  pokemon_move.
+Stun_Spore:     pokemon_move.
+Sleep_Powder:   pokemon_move.
+Petal_Dance:    pokemon_move.
+String_Shot:    pokemon_move.
+Dragon_Rage:    pokemon_move.
+Fire_Spin:      pokemon_move.
+Thunder_Shock:  pokemon_move.
+Thunderbolt:    pokemon_move.
+Thunder_Wave:   pokemon_move.
+Thunder:        pokemon_move.
+Rock_Throw:     pokemon_move.
+Earthquake:     pokemon_move.
+Fissure:        pokemon_move.
+Dig:            pokemon_move.
+Toxic:          pokemon_move.
+Confusion:      pokemon_move.
+Psychic:        pokemon_move.
+Hypnosis:       pokemon_move.
+Meditate:       pokemon_move.
+Agility:        pokemon_move.
+Quick_Attack:   pokemon_move.
+Rage:           pokemon_move.
+Teleport:       pokemon_move.
+Night_Shade:    pokemon_move.
+Mimic:          pokemon_move.
+Screech:        pokemon_move.
+Double_Team:    pokemon_move.
+Recover:        pokemon_move.
+Harden:         pokemon_move.
+Minimize:       pokemon_move.
+Smokescreen:    pokemon_move.
+Confuse_Ray:    pokemon_move.
+Withdraw:       pokemon_move.
+Defense_Curl:   pokemon_move.
+Barrier:        pokemon_move.
+Light_Screen:   pokemon_move.
+Haze:           pokemon_move.
+Reflect:        pokemon_move.
+Focus_Energy:   pokemon_move.
+Bide:           pokemon_move.
+Metronome:      pokemon_move.
+Mirror_Move:    pokemon_move.
+Self-Destruct:  pokemon_move.
+Egg_Bomb:       pokemon_move.
+Lick:           pokemon_move.
+Smog:           pokemon_move.
+Sludge:         pokemon_move.
+Bone_Club:      pokemon_move.
+Fire_Blast:     pokemon_move.
+Waterfall:      pokemon_move.
+Clamp:          pokemon_move.
+Swift:          pokemon_move.
+Skull_Bash:     pokemon_move.
+Spike_Cannon:   pokemon_move.
+Constrict:      pokemon_move.
+Amnesia:        pokemon_move.
+Kinesis:        pokemon_move.
+Soft-Boiled:    pokemon_move.
+High_Jump_Kick: pokemon_move.
+Glare:          pokemon_move.
+Dream_Eater:    pokemon_move.
+Poison_Gas:     pokemon_move.
+Barrage:        pokemon_move.
+Leech_Life:     pokemon_move.
+Lovely_Kiss:    pokemon_move.
+Sky_Attack:     pokemon_move.
+Transform:      pokemon_move.
+Bubble:         pokemon_move.
+Dizzy_Punch:    pokemon_move.
+Spore:          pokemon_move.
+Flash:          pokemon_move.
+Psywave:        pokemon_move.
+Splash:         pokemon_move.
+Acid_Armor:     pokemon_move.
+Crabhammer:     pokemon_move.
+Explosion:      pokemon_move.
+Fury_Swipes:    pokemon_move.
+Bonemerang:     pokemon_move.
+Rest:           pokemon_move.
+Rock_Slide:     pokemon_move.
+Hyper_Fang:     pokemon_move.
+Sharpen:        pokemon_move.
+Conversion:     pokemon_move.
+Tri_Attack:     pokemon_move.
+Super_Fang:     pokemon_move.
+Slash:          pokemon_move.
+Substitute:     pokemon_move.
+
+move_type: type.
+Physical:   move_type.
+Special:    move_type.
+Status:     move_type.
+
+gender: type.
+undefined:  gender.
+boy:        gender.
+girl:       gender.
+
+item: type.
+none:           item.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TMs
+TM01:           item.
+TM02:           item.
+TM03:           item.
+TM04:           item.
+TM05:           item.
+TM06:           item.
+TM07:           item.
+TM08:           item.
+TM09:           item.
+TM10:           item.
+TM11:           item.
+TM12:           item.
+TM13:           item.
+TM14:           item.
+TM15:           item.
+TM16:           item.
+TM17:           item.
+TM18:           item.
+TM19:           item.
+TM20:           item.
+TM21:           item.
+TM22:           item.
+TM23:           item.
+TM24:           item.
+TM25:           item.
+TM26:           item.
+TM27:           item.
+TM28:           item.
+TM29:           item.
+TM30:           item.
+TM31:           item.
+TM32:           item.
+TM33:           item.
+TM34:           item.
+TM35:           item.
+TM36:           item.
+TM37:           item.
+TM38:           item.
+TM39:           item.
+TM40:           item.
+TM41:           item.
+TM42:           item.
+TM43:           item.
+TM44:           item.
+TM45:           item.
+TM46:           item.
+TM47:           item.
+TM48:           item.
+TM49:           item.
+TM50:           item.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HMs
+HM01:           item.
+HM02:           item.
+HM03:           item.
+HM04:           item.
+HM05:           item.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Evolution stones
+Fire_Stone:     item.
+Water_Stone:    item.
+Thunder_Stone:  item.
+Leaf_Stone:     item.
+Moon_Stone:     item.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Key items
+SS_ticket:      item.
+bike:           item.
+Silph_scope:    item.
+flute:          item.
+secret_key:     item.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Badges
+Boulder_Badge:  item.
+Cascade_Badge:  item.
+Thunder_Badge:  item.
+Rainbow_Badge:  item.
+Soul_Badge:     item.
+Marsh_Badge:    item.
+Volcano_Badge:  item.
+Earth_Badge:    item.
+
+knowledge: type.
+none:                       knowledge.
+game_corner_hidden_switch:  knowledge.
+
+pokemon: type.
+Bulbasaur:  pokemon.
+Ivysaur:    pokemon.
+Venusaur:   pokemon.
+Charmander: pokemon.
+Charmeleon: pokemon.
+Charizard:  pokemon.
+Squirtle:   pokemon.
+Wartortle:  pokemon.
+Blastoise:  pokemon.
+Caterpie:   pokemon.
+Metapod:    pokemon.
+Butterfree: pokemon.
+Weedle:     pokemon.
+Kakuna:     pokemon.
+Beedrill:   pokemon.
+Pidgey:     pokemon.
+Pidgeotto:  pokemon.
+Pidgeot:    pokemon.
+Rattata:    pokemon.
+Raticate:   pokemon.
+Spearow:    pokemon.
+Fearow:     pokemon.
+Ekans:      pokemon.
+Arbok:      pokemon.
+Pikachu:    pokemon.
+Raichu:     pokemon.
+Sandshrew:  pokemon.
+Sandslash:  pokemon.
+Nidoran♀:   pokemon.
+Nidorina:   pokemon.
+Nidoqueen:  pokemon.
+Nidoran♂:   pokemon.
+Nidorino:   pokemon.
+Nidoking:   pokemon.
+Clefairy:   pokemon.
+Clefable:   pokemon.
+Vulpix:     pokemon.
+Ninetails:  pokemon.
+Jigglypuff: pokemon.
+Wigglytuff: pokemon.
+Zubat:      pokemon.
+Golbat:     pokemon.
+Oddish:     pokemon.
+Gloom:      pokemon.
+Vileplume:  pokemon.
+Paras:      pokemon.
+Parasect:   pokemon.
+Venonat:    pokemon.
+Venomoth:   pokemon.
+Diglett:    pokemon.
+Dugtrio:    pokemon.
+Meowth:     pokemon.
+Persian:    pokemon.
+Psyduck:    pokemon.
+Golduck:    pokemon.
+Mankey:     pokemon.
+Primeape:   pokemon.
+Growlithe:  pokemon.
+Arcanine:   pokemon.
+Poliwag:    pokemon.
+Poliwhirl:  pokemon.
+Poliwrath:  pokemon.
+Abra:       pokemon.
+Kadabra:    pokemon.
+Alakazam:   pokemon.
+Machop:     pokemon.
+Machoke:    pokemon.
+Machamp:    pokemon.
+Bellsprout: pokemon.
+Weepinbell: pokemon.
+Victreebel: pokemon.
+Tentacool:  pokemon.
+Tentacruel: pokemon.
+Geodude:    pokemon.
+Graveler:   pokemon.
+Golem:      pokemon.
+Ponyta:     pokemon.
+Rapidash:   pokemon.
+Slowpoke:   pokemon.
+Slowbro:    pokemon.
+Magnemite:  pokemon.
+Magneton:   pokemon.
+Farfetch'd: pokemon.
+Doduo:      pokemon.
+Dodrio:     pokemon.
+Seel:       pokemon.
+Dewgong:    pokemon.
+Grimer:     pokemon.
+Muk:        pokemon.
+Shellder:   pokemon.
+Cloyster:   pokemon.
+Gastly:     pokemon.
+Haunter:    pokemon.
+Gengar:     pokemon.
+Onix:       pokemon.
+Drowsee:    pokemon.
+Hypno:      pokemon.
+Krabby:     pokemon.
+Kingler:    pokemon.
+Voltorb:    pokemon.
+Electrode:  pokemon.
+Exeggcute:  pokemon.
+Exeggutor:  pokemon.
+Cubone:     pokemon.
+Marowak:    pokemon.
+Hitmonlee:  pokemon.
+Hitmonchan: pokemon.
+Lickitung:  pokemon.
+Koffing:    pokemon.
+Weezing:    pokemon.
+Rhyhorn:    pokemon.
+Rhydon:     pokemon.
+Chansey:    pokemon.
+Tangela:    pokemon.
+Kangaskhan: pokemon.
+Horsea:     pokemon.
+Seadra:     pokemon.
+Goldeen:    pokemon.
+Seaking:    pokemon.
+Staryu:     pokemon.
+Starmie:    pokemon.
+Mr_Mime:    pokemon.
+Scyther:    pokemon.
+Jynx:       pokemon.
+Electabuzz: pokemon.
+Magmar:     pokemon.
+Pinsir:     pokemon.
+Tauros:     pokemon.
+Magikarp:   pokemon.
+Gyarados:   pokemon.
+Lapras:     pokemon.
+Ditto:      pokemon.
+Eevee:      pokemon.
+Vaporeon:   pokemon.
+Jolteon:    pokemon.
+Flareon:    pokemon.
+Porygon:    pokemon.
+Omanyte:    pokemon.
+Omastar:    pokemon.
+Kabuto:     pokemon.
+Kabutops:   pokemon.
+Aerodactyl: pokemon.
+Snorlax:    pokemon.
+Articuno:   pokemon.
+Zapdos:     pokemon.
+Moltres:    pokemon.
+Dratini:    pokemon.
+Dragonair:  pokemon.
+Dragonite:  pokemon.
+Mewtwo:     pokemon.
+Mew:        pokemon.
+
+location: type.
+undefined:              location.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Towns & cities
+Pallet_Town:            location.
+Viridian_City:          location.
+Pewter_City:            location.
+Cerulean_City:          location.
+Lavender_Town:          location.
+Saffron_City:           location.
+Celadon_City:           location.
+Vermillion_City:        location.
+Fuschia_City:           location.
+Cinnabar_Island:        location.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Routes
+Route_1:                location.
+Route_2:                location.
+Route_3:                location.
+Route_4:                location.
+Route_5:                location.
+Route_6:                location.
+Route_7:                location.
+Route_8:                location.
+Route_9:                location.
+Route_10:               location.
+Route_11:               location.
+Route_12:               location.
+Route_13:               location.
+Route_14:               location.
+Route_15:               location.
+Route_16:               location.
+Route_17:               location.
+Route_18:               location.
+Route_19:               location.
+Route_20:               location.
+Route_21:               location.
+Route_22:               location.
+Route_23:               location.
+Route_24:               location.
+Route_25:               location.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Places of interest
+your_house:             location.
+Professor_Oak's_lab:    location.
+bike_shop:              location.
+department_store:       location.
+game_corner:            location.
+Team_Rocket_hideout:    location.
+Silph_Co:               location.
+Pokémon_Tower:          location.
+fighting_dojo:          location.
+Pokémon_Mansion:        location.
+Cinnabar_Lab:           location.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Gyms
+Pewter_Gym:             location.
+Viridian_Gym:           location.
+Cerulean_Gym:           location.
+Vermillion_Gym:         location.
+Celadon_Gym:            location.
+Saffron_Gym:            location.
+Fuschia_Gym:            location.
+Cinnabar_Gym:           location.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Special locations
+Viridian_Forest:        location.
+Diglett's_Cave:         location.
+Mt_Moon:                location.
+Cerulean_Cave:          location.
+Bill's_house:           location.
+Underground_Path:       location.
+SS_anne:                location.
+Rock_Tunnel:            location.
+Safari_Zone:            location.
+Power_Plant:            location.
+Seafoam_Islands:        location.
+Victory_Road:           location.
+Indigo_Plateau:         location.
+
+
+% 1 move per turn
+player_token:                                       pred.
+cpu_token:                                          pred.
+
+% setup
+starting_location location string:                  pred.
+flight_target location:                             pred.
+route location location:                            pred.
+route_item location location item:                  pred.
+route_skill location location pokemon_move:         pred.
+route_knowledge location location knowledge:        pred.
+route_badges location location numbers:             pred.
+route_set location location:                        pred.
+found_in item location:                             pred.
+gives_item character item string:                   pred.
+gives_pokemon character pokemon string:             pred.
+can_learn pokemon pokemon_move:                     pred.
+learns_at pokemon pokemon_move numbers:             pred.
+is_move_type pokemon_move pokemon_type move_type:   pred.
+evolution pokemon pokemon:                          pred.
+evolution_level pokemon numbers:                    pred.
+evolution_stone pokemon item:                       pred.
+tm item pokemon_move:                               pred.
+hm item pokemon_move:                               pred.
+wild_encounter location pokemon numbers:            pred.
+
+visited location:                                   pred. % Used for Fly pokemon_move.
+revert_char character location:                     pred. % Used for look_around rule.
+revert_item item location:                          pred. % Used for look_around rule.
+seen_char character location:                       pred.
+seen_item item location:                            pred.
+
+gender character gender:                            pred.
+hp character numbers:                               pred.
+at character location:                              pred.
+has character item:                                 pred.
+badges numbers:                                     pred.
+owns character pokemon:                             pred.
+can character pokemon_move:                         pred.
+knows character knowledge:                          pred.
+can_run:                                            pred.
+battling pokemon:                                   pred.
+
+%%%%%%%%%%%%   HP      ATK     DEF     SPD     SPC      Type 1       Type 2       Move 1       Move 2       Move 3       Move 4
+pkmn pokemon numbers numbers numbers numbers numbers pokemon_type pokemon_type pokemon_move pokemon_move pokemon_move pokemon_move
+
+stage setup = {
+    % Setup travel
+    route_init: route L1 L2 -o route_item L1 L2 none * route_skill L1 L2 none * route_knowledge L1 L2 none * route_set L1 L2.
+    route_item: route_item L1 L2 none * $route_item L1 L2 I -o ().
+    route_skill: route_skill L1 L2 none * $route_skill L1 L2 S -o ().
+    route_knowledge: route_knowledge L1 L2 none * $route_knowledge L1 L2 K -o ().
+} #hidden setup.
+qui * stage setup -o stage post_setup * badges 0.
+
+stage post_setup = {
+    revert: route_set L1 L2 -o route L1 L2.
+} #hidden post_setup.
+qui * stage post_setup -o stage character_creator * gender player undefined * "\"First, are you a boy or a girl?\"".
+
+stage character_creator = {
+    "I'm a boy":            gender player undefined -o gender player boy * "\"So you are a boy.\"".
+    "I'm a girl":           gender player undefined -o gender player girl * "\"So you are a girl.\"".
+} #interactive character_creator.
+qui * stage character_creator -o stage start * at player undefined * has player none * can player none * knows player none.
+
+stage start = {
+    "Start at \[L]": at player undefined * starting_location L S -o at player L * visited L * "\[S]" * "Your adventure starts at \[L].".
+} #hidden start.
+qui * stage start -o stage main * player_token.
+
+stage main = {
+    "Look around":                      () -o stage looking * "You look around.".
+    "Talk to \[C]":                     seen_char C L * $at player L * $at C L * $gives_item C I S * has C I -o has player I * "\[S]".
+    "Choose \[P]":                      seen_char C L * $at player L * $at C L * $gives_pokemon C P S * owns C P -o owns player P * "\[S]" * "You received \[P]!".
+    "Pick up \[I]":                     seen_item I L * $at player L * found_in I L -o has player I * "You picked up a \[I]!".
+    "Move to \[L2]":                    at player L1 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K -o at player L2 * visited L2 * "You moved to \[L2]".
+    "Move to \[L1]":                    at player L2 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K -o at player L1 * visited L1 * "You moved to \[L1]".
+    "Fly to \[L2]":                     $can player Fly * at player L1 * $visited L2 * $flight_target L2 -o at player L2 * "You flew to \[L2].".
+    "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $tm I M * has player I * $pkmn P HP ATK DEF SPD SPC T1 T2 M1 M2 M3 M4 -o stage learn_auto.
+    "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $hm I M * $has player I * owns player P * $pkmn P HP ATK DEF SPD SPC T1 T2 M1 M2 M3 M4 -o stage learn_auto.
+    "Look for wild Pokémon":            $at player L * $wild_encounter L P Lvl -o stage wild_encounter.
+} #interactive main.
+
+stage looking = {
+    % Remove character from world to avoid infinite loop.
+    see: $at player L * at C L -o revert_char C L * seen_char C L * "You see \[C].".
+    see: $at player L * found_in I L -o revert_item I L * seen_item I L * "You see a \[I].".
+} #hidden looking.
+qui * stage looking -o stage post_looking.
+
+stage post_looking = {
+    % Restore character.
+    revert: revert_char C L -o at C L.
+    revert: revert_item I L -o found_in I L.
+} #hidden post_looking.
+qui * stage post_looking -o stage main * player_token.
+
+stage learn_auto = {
+}
+
+stage wild_encounter = {
+    encounter: $at player L * $wild_encounter L P Lvl -o battling P * can_run * stage battle * "A wild \[P] appeared!".
+} #hidden wild_encounter.
+
+stage battle = {
+    "Attack": () -o stage player_attack.
+    "Use item": () -o stage use_item.
+    "Change Pokémon": () -o stage change_pokemon.
+    "Run": can_run -o stage main.
+} #interactive battle.
+
+context travel = {
+    flight_target   Pallet_Town,
+    flight_target   Viridian_City,
+    flight_target   Pewter_City,
+    flight_target   Cerulean_City,
+    flight_target   Vermillion_City,
+    flight_target   Saffron_City,
+    flight_target   Lavender_Town,
+    flight_target   Celadon_City,
+    flight_target   Fuschia_City,
+    flight_target   Cinnabar_Island,
+    flight_target   Indigo_Plateau,
+
+    route           Pallet_Town         Route_1,
+    route           Pallet_Town         Route_21,
+    route_skill     Pallet_Town         Route_21            Surf,
+    route           Pallet_Town         your_house,
+    route           Pallet_Town         Professor_Oak's_lab,
+
+    route           Viridian_City       Route_1,
+    route           Viridian_City       Route_2,
+    route           Viridian_City       Route_22,
+    route           Viridian_City       Viridian_Gym,
+    route_badges    Viridian_City       Viridian_Gym        7,
+
+    route           Diglett's_Cave      Route_2,
+    route_skill     Diglett's_Cave      Route_2             Cut,
+    route           Diglett's_Cave      Route_11,
+
+    route           Viridian_Forest     Route_2,
+    route           Pewter_City         Viridian_Forest,
+    route           Pewter_City         Route_3,
+    route           Pewter_City         Pewter_Gym,
+
+    route           Mt_Moon             Route_3,
+    route           Mt_Moon             Route_4,
+
+    route           Cerulean_City       Route_4,
+    route           Cerulean_City       Route_5,
+    route           Cerulean_City       Route_9,
+    route           Cerulean_City       Route_24,
+    route           Cerulean_City       Cerulean_Gym,
+    route           Cerulean_City       Cerulean_Cave,
+    route_skill     Cerulean_City       Cerulean_Cave       Surf,
+    route_badges    Cerulean_City       Cerulean_Cave       9,
+
+    route           Underground_Path    Route_5,
+    route           Underground_Path    Route_6,
+
+    route           Saffron_City        Route_5,
+    route           Saffron_City        Route_6,
+    route           Saffron_City        Route_7,
+    route           Saffron_City        Route_8,
+    route           Saffron_City        Saffron_Gym,
+    route           Saffron_City        fighting_dojo,
+    route           Saffron_City        Silph_Co,
+
+    route           Vermillion_City     Route_6,
+    route           Vermillion_City     Route_11,
+    route           Vermillion_City     SS_anne,
+    route_item      Vermillion_City     SS_anne             SS_ticket,
+    route           Vermillion_City     Vermillion_Gym,
+    route_skill     Vermillion_City     Vermillion_Gym      Cut,
+
+    route           Celadon_City        Route_7,
+    route           Celadon_City        Route_16,
+    route           Celadon_City        Celadon_Gym,
+    route           Celadon_City        department_store,
+    route           Celadon_City        game_corner,
+    route           game_corner         Team_Rocket_hideout,
+    route_knowledge game_corner         Team_Rocket_hideout game_corner_hidden_switch,
+
+    route           Route_16            Route_17,
+    route_item      Route_16            Route_17            bike,
+    route           Route_17            Route_18,
+    route_item      Route_17            Route_18            bike,
+
+    route           Power_Plant         Route_9,
+    route_skill     Power_Plant         Route_9             Surf,
+    route           Rock_Tunnel         Route_9,
+    route           Rock_Tunnel         Route_10,
+    route_skill     Rock_Tunnel         Route_10            Flash,
+
+    route           Lavender_Town       Route_8,
+    route           Lavender_Town       Route_10,
+    route           Lavender_Town       Route_12,
+
+    route           Route_11            Route_12,
+    route_item      Route_11            Route_12            flute,
+    route           Route_11            Route_13,
+    route_item      Route_11            Route_12            flute,
+    route           Route_12            Route_13,
+    route_item      Route_12            Route_13            flute,
+    route           Route_13            Route_14,
+    route           Route_14            Route_15,
+
+    route           Fuschia_City        Route_15,
+    route           Fuschia_City        Route_18,
+    route           Fuschia_City        Route_19,
+    route           Fuschia_City        Fuschia_Gym,
+    route           Fuschia_City        Safari_Zone,
+
+    route           Seafoam_Islands     Route_19,
+    route_skill     Seafoam_Islands     Route_19            Surf,
+    route           Seafoam_Islands     Route_20,
+    route_skill     Seafoam_Islands     Route_20            Surf,
+
+    route           Cinnabar_Island     Route_20,
+    route_skill     Cinnabar_Island     Route_20            Surf,
+    route           Cinnabar_Island     Route_21,
+    route_skill     Cinnabar_Island     Route_21            Surf,
+    route           Cinnabar_Island     Cinnabar_Gym,
+    route_item      Cinnabar_Island     Cinnabar_Gym        secret_key,
+    route           Cinnabar_Island     Pokémon_Mansion,
+    route           Cinnabar_Island     Cinnabar_Lab,
+
+    route           Route_22            Route_23,
+    route_badges    Route_22            Route_23            8,
+    route           Victory_Road        Route_23,
+    route_skill     Victory_Road        Route_23            Surf,
+    route           Victory_Road        Indigo_Plateau,
+
+    route           Route_24            Route_25,
+    route           Route_25            Bill's_house,
+}
+
+context habitats = {
+    wild_encounter Route_1          Pidgey       5,
+    wild_encounter Route_1          Rattata      4,
+
+    wild_encounter Route_2          Weedle       5,
+    wild_encounter Route_2          Pidgey       5,
+    wild_encounter Route_2          Rattata      5,
+
+    wild_encounter Viridian_Forest  Caterpie     3,
+    wild_encounter Viridian_Forest  Metapod      4,
+    wild_encounter Viridian_Forest  Weedle       5,
+    wild_encounter Viridian_Forest  Kakuna       6,
+    wild_encounter Viridian_Forest  Pikachu      5,
+
+    wild_encounter Diglett's_Cave   Diglett     22,
+    wild_encounter Diglett's_Cave   Dugtrio     31,
+
+    wild_encounter Route_3          Pidgey       8,
+    wild_encounter Route_3          Spearow      8,
+    wild_encounter Route_3          Jigglypuff   7,
+
+    wild_encounter Mt_Moon          Clefairy    12,
+    wild_encounter Mt_Moon          Zubat       12,
+    wild_encounter Mt_Moon          Paras       12,
+    wild_encounter Mt_Moon          Geodude     10,
+
+    wild_encounter Route_4          Rattata     12,
+    wild_encounter Route_4          Spearow     12,
+    wild_encounter Route_4          Ekans       12,
+
+    wild_encounter Route_5          Pidgey      16,
+    wild_encounter Route_5          Oddish      16,
+    wild_encounter Route_5          Mankey      16,
+
+    wild_encounter Route_6          Pidgey      16,
+    wild_encounter Route_6          Oddish      16,
+    wild_encounter Route_6          Mankey      16,
+
+    wild_encounter Route_7          Pidgey      22,
+    wild_encounter Route_7          Oddish      22,
+    wild_encounter Route_7          Mankey      20,
+    wild_encounter Route_7          Growlithe   20,
+
+    wild_encounter Route_8          Pidgey      20,
+    wild_encounter Route_8          Ekans       19,
+    wild_encounter Route_8          Mankey      20,
+    wild_encounter Route_8          Growlithe   18,
+
+    wild_encounter Pokémon_Tower    Gastly      24,
+    wild_encounter Pokémon_Tower    Haunter     30,
+    wild_encounter Pokémon_Tower    Cubone      24,
+
+    wild_encounter Route_9          Rattata     17,
+    wild_encounter Route_9          Spearow     17,
+    wild_encounter Route_9          Ekans       17,
+
+    wild_encounter Route_10         Spearow     17,
+    wild_encounter Route_10         Ekans       17,
+    wild_encounter Route_10         Voltorb     17,
+
+    wild_encounter Power_Plant      Pikachu     24,
+    wild_encounter Power_Plant      Magnemite   23,
+    wild_encounter Power_Plant      Magneton    35,
+    wild_encounter Power_Plant      Voltorb     23,
+    wild_encounter Power_Plant      Electabuzz  36,
+
+    wild_encounter Rock_Tunnel      Zubat       18,
+    wild_encounter Rock_Tunnel      Machop      17,
+    wild_encounter Rock_Tunnel      Geodude     18,
+    wild_encounter Rock_Tunnel      Onix        17,
+
+    wild_encounter Route_11         Spearow     17,
+    wild_encounter Route_11         Ekans       15,
+    wild_encounter Route_11         Drowsee     15,
+
+    wild_encounter Route_12         Pidgey      27,
+    wild_encounter Route_12         Oddish      26,
+    wild_encounter Route_12         Gloom       30,
+    wild_encounter Route_12         Venonat     26,
+
+    wild_encounter Route_13         Pidgey      27,
+    wild_encounter Route_13         Oddish      26,
+    wild_encounter Route_13         Gloom       30,
+    wild_encounter Route_13         Venonat     26,
+    wild_encounter Route_13         Ditto       25,
+
+    wild_encounter Route_14         Pidgey      26,
+    wild_encounter Route_14         Pidgeotto   30,
+    wild_encounter Route_14         Oddish      26,
+    wild_encounter Route_14         Gloom       30,
+    wild_encounter Route_14         Venonat     26,
+    wild_encounter Route_14         Ditto       23,
+
+    wild_encounter Route_15         Pidgey      23,
+    wild_encounter Route_15         Pidgeotto   30,
+    wild_encounter Route_15         Oddish      26,
+    wild_encounter Route_15         Gloom       30,
+    wild_encounter Route_15         Venonat     28,
+    wild_encounter Route_15         Ditto       26,
+
+    wild_encounter Route_16         Rattata     22,
+    wild_encounter Route_16         Raticate    25,
+    wild_encounter Route_16         Spearow     22,
+    wild_encounter Route_16         Doduo       22,
+
+    wild_encounter Route_17         Raticate    29,
+    wild_encounter Route_17         Spearow     22,
+    wild_encounter Route_17         Fearow      27,
+    wild_encounter Route_17         Doduo       28,
+
+    wild_encounter Route_18         Raticate    29,
+    wild_encounter Route_18         Spearow     22,
+    wild_encounter Route_18         Fearow      29,
+    wild_encounter Route_18         Doduo       28,
+
+    wild_encounter Safari_Zone      Nidoran♀    25,
+    wild_encounter Safari_Zone      Nidorina    31,
+    wild_encounter Safari_Zone      Nidoran♂    25,
+    wild_encounter Safari_Zone      Nidorino    33,
+    wild_encounter Safari_Zone      Paras       23,
+    wild_encounter Safari_Zone      Parasect    30,
+    wild_encounter Safari_Zone      Venonat     23,
+    wild_encounter Safari_Zone      Venomoth    32,
+    wild_encounter Safari_Zone      Doduo       26,
+    wild_encounter Safari_Zone      Exeggcute   27,
+    wild_encounter Safari_Zone      Rhyhorn     26,
+    wild_encounter Safari_Zone      Chansey     26,
+    wild_encounter Safari_Zone      Kangaskhan  28,
+    wild_encounter Safari_Zone      Scyther     28,
+    wild_encounter Safari_Zone      Tauros      28,
+
+    wild_encounter Route_19         Tentacool   40,
+
+    wild_encounter Seafoam_Islands  Zubat       21,
+    wild_encounter Seafoam_Islands  Golbat      32,
+    wild_encounter Seafoam_Islands  Psyduck     28,
+    wild_encounter Seafoam_Islands  Golduck     38,
+    wild_encounter Seafoam_Islands  Slowpoke    33,
+    wild_encounter Seafoam_Islands  Slowbro     39,
+    wild_encounter Seafoam_Islands  Seel        33,
+    wild_encounter Seafoam_Islands  Dewgong     38,
+    wild_encounter Seafoam_Islands  Shellder    33,
+    wild_encounter Seafoam_Islands  Horsea      33,
+    wild_encounter Seafoam_Islands  Seadra      39,
+    wild_encounter Seafoam_Islands  Staryu      30,
+
+    wild_encounter Route_20         Tentacool   40,
+
+    wild_encounter Pokémon_Mansion  Growlithe   35,
+    wild_encounter Pokémon_Mansion  Ponyta      36,
+    wild_encounter Pokémon_Mansion  Grimer      35,
+    wild_encounter Pokémon_Mansion  Muk         42,
+    wild_encounter Pokémon_Mansion  Koffing     35,
+    wild_encounter Pokémon_Mansion  Weezing     42,
+
+    wild_encounter Route_21         Pidgey      23,
+    wild_encounter Route_21         Pidgeotto   32,
+    wild_encounter Route_21         Rattata     23,
+    wild_encounter Route_21         Raticate    30,
+    wild_encounter Route_21         Tangela     32,
+    wild_encounter Route_21         Tentacool   40,
+
+    wild_encounter Route_22         Rattata      4,
+    wild_encounter Route_22         Spearow      5,
+    wild_encounter Route_22         Nidoran♀     4,
+    wild_encounter Route_22         Nidoran♂     4,
+
+    wild_encounter Route_23         Spearow     26,
+    wild_encounter Route_23         Fearow      43,
+    wild_encounter Route_23         Ekans       26,
+    wild_encounter Route_23         Arbok       41,
+    wild_encounter Route_23         Ditto       43,
+
+    wild_encounter Victory_Road     Zubat       26,
+    wild_encounter Victory_Road     Golbat      41,
+    wild_encounter Victory_Road     Venomoth    40,
+    wild_encounter Victory_Road     Machop      24,
+    wild_encounter Victory_Road     Machoke     45,
+    wild_encounter Victory_Road     Geodude     26,
+    wild_encounter Victory_Road     Graveler    43,
+    wild_encounter Victory_Road     Onix        45,
+    wild_encounter Victory_Road     Marowak     43,
+
+    wild_encounter Route_24         Weedle       7,
+    wild_encounter Route_24         Kakuna       8,
+    wild_encounter Route_24         Pidgey      13,
+    wild_encounter Route_24         Oddish      14,
+    wild_encounter Route_24         Abra        12,
+
+    wild_encounter Route_25         Caterpie     8,
+    wild_encounter Route_25         Metapod      7,
+    wild_encounter Route_25         Weedle       8,
+    wild_encounter Route_25         Kakuna       9,
+    wild_encounter Route_25         Pidgey      13,
+    wild_encounter Route_25         Oddish      14,
+    wild_encounter Route_25         Abra        12
+}
+
+context placements = {
+    habitats,
+
+    at              Professor_Oak   Professor_Oak's_lab,
+    owns            Professor_Oak   Bulbasaur,
+    owns            Professor_Oak   Charmander,
+    owns            Professor_Oak   Squirtle,
+    gives_pokemon   Professor_Oak   Bulbasaur   "So you want the plant Pokémon, Bulbasaur? This Pokémon is really energetic!",
+    gives_pokemon   Professor_Oak   Charmander  "So you want the fire Pokémon, Charmander? This Pokémon is really energetic!",
+    gives_pokemon   Professor_Oak   Squirtle    "So you want the water Pokémon, Squirtle? This Pokémon is really energetic!",
+
+    at              Bill            Bill's_house,
+    has             Bill            SS_ticket,
+    gives_item      Bill            SS_ticket   "Thanks for helping me out. Here, let me give you this ticket for the S.S. Anne.",
+
+    at              bike_shop_owner bike_shop,
+    has             bike_shop_owner bike,
+    gives_item      bike_shop_owner bike        "Here's your bike!",
+
+    found_in        secret_key      Pokémon_Mansion
+}
+
+context evolution = {
+    evolution       Bulbasaur   Ivysaur,
+    evolution_level Ivysaur     16,
+    evolution       Ivysaur     Venusaur,
+    evolution_level Venusaur    32,
+
+    evolution       Charmander  Charmeleon,
+    evolution_level Charmeleon  16,
+    evolution       Charmeleon  Charizard,
+    evolution_level Charizard   36,
+
+    evolution       Squirtle    Wartortle,
+    evolution_level Wartortle   16,
+    evolution       Wartortle   Blastoise,
+    evolution_level Blastoise   36,
+
+    evolution       Caterpie    Metapod,
+    evolution_level Metapod     7,
+    evolution       Metapod     Butterfree,
+    evolution_level Butterfree  10,
+
+    evolution       Weedle      Kakuna,
+    evolution_level Kakuna      7,
+    evolution       Kakuna      Beedrill,
+    evolution_level Beedrill    10,
+
+    evolution       Pidgey      Pidgeotto,
+    evolution_level Pidgeotto   18,
+    evolution       Pidgeotto   Pidgeot,
+    evolution_level Pidgeot     36,
+
+    evolution       Rattata     Raticate,
+    evolution_level Raticate    20,
+
+    evolution       Spearow     Fearow,
+    evolution_level Fearow      20,
+
+    evolution       Ekans       Arbok,
+    evolution_level Arbok       22,
+
+    evolution       Pikachu     Raichu,
+    evolution_stone Raichu      Thunder_Stone,
+
+    evolution       Sandshrew   Sandslash,
+    evolution_level Sandslash   22,
+
+    evolution       Nidoran♀    Nidorina,
+    evolution_level Nidorina    16,
+    evolution       Nidorina    Nidoqueen,
+    evolution_stone Nidoqueen   Moon_Stone,
+
+    evolution       Nidoran♂    Nidorino,
+    evolution_level Nidorino    16,
+    evolution       Nidorino    Nidoking,
+    evolution_stone Nidoking    Moon_Stone,
+
+    evolution       Clefairy    Clefable,
+    evolution_stone Clefable    Moon_Stone,
+
+    evolution       Vulpix      Ninetails,
+    evolution_stone Ninetails   Fire_Stone,
+
+    evolution       Jigglypuff  Wigglytuff,
+    evolution_stone Wigglytuff  Moon_Stone,
+
+    evolution       Zubat       Golbat,
+    evolution_level Golbat      22,
+
+    evolution       Oddish      Gloom,
+    evolution_level Gloom       21,
+    evolution       Gloom       Vileplume,
+    evolution_stone Vileplume   Leaf_Stone,
+
+    evolution       Paras       Parasect,
+    evolution_level Parasect    24,
+
+    evolution       Venonat     Venomoth,
+    evolution_level Venomoth    31,
+
+    evolution       Diglett     Dugtrio,
+    evolution_level Dugtrio     26,
+
+    evolution       Meowth      Persian,
+    evolution_level Persian     28,
+
+    evolution       Psyduck     Golduck,
+    evolution_level Golduck     33,
+
+    evolution       Mankey      Primeape,
+    evolution_level Primeape    28,
+
+    evolution       Growlithe   Arcanine,
+    evolution_stone Arcanine    Fire_Stone,
+
+    evolution       Poliwag     Poliwhirl,
+    evolution_level Poliwhirl   25,
+    evolution       Poliwhirl   Poliwrath,
+    evolution_stone Poliwrath   Water_Stone,
+
+    evolution       Abra        Kadabra,
+    evolution_level Kadabra     16,
+    evolution       Kadabra     Alakazam,
+    evolution_level Alakazam    36,
+
+    evolution       Machop      Machoke,
+    evolution_level Machoke     28,
+    evolution       Machoke     Machamp,
+    evolution_level Machamp     48,
+
+    evolution       Bellsprout  Weepinbell,
+    evolution_level Weepinbell  21,
+    evolution       Weepinbell  Victreebel,
+    evolution_stone Victreebel  Leaf_Stone,
+
+    evolution       Tentacool   Tentacruel,
+    evolution_level Tentacruel  30,
+
+    evolution       Geodude     Graveler,
+    evolution_level Graveler    25,
+    evolution       Graveler    Golem,
+    evolution_level Golem       45,
+
+    evolution       Ponyta      Rapidash,
+    evolution_level Rapidash    40,
+
+    evolution       Slowpoke    Slowbro,
+    evolution_level Slowbro     37,
+
+    evolution       Magnemite   Magneton,
+    evolution_level Magneton    30,
+
+    evolution       Doduo       Dodrio,
+    evolution_level Dodrio      31,
+
+    evolution       Seel        Dewgong,
+    evolution_level Dewgong     34,
+
+    evolution       Grimer      Muk,
+    evolution_level Muk         38,
+
+    evolution       Shellder    Cloyster,
+    evolution_stone Cloyster    Water_Stone,
+
+    evolution       Gastly      Haunter,
+    evolution_level Haunter     25,
+    evolution       Haunter     Gengar,
+    evolution_level Gengar      45,
+
+    evolution       Drowsee     Hypno,
+    evolution_level Drowsee     26,
+
+    evolution       Krabby      Kingler,
+    evolution_level Kingler     28,
+
+    evolution       Voltorb     Electrode,
+    evolution_level Electrode   30,
+
+    evolution       Exeggcute   Exeggutor,
+    evolution_stone Exeggutor   Leaf_Stone,
+
+    evolution       Cubone      Marowak,
+    evolution_level Marowak     28,
+
+    evolution       Koffing     Weezing,
+    evolution_level Weezing     35,
+
+    evolution       Rhyhorn     Rhydon,
+    evolution_level Rhydon      42,
+
+    evolution       Horsea      Seadra,
+    evolution_level Seadra      32,
+
+    evolution       Goldeen     Seaking,
+    evolution_level Seaking     33,
+
+    evolution       Staryu      Starmie,
+    evolution_stone Starmie     Water_Stone,
+
+    evolution       Magikarp    Gyarados,
+    evolution_level Gyarados    20,
+
+    evolution       Eevee       Vaporeon,
+    evolution_stone Vaporeon    Water_Stone,
+    evolution       Eevee       Jolteon,
+    evolution_stone Jolteon     Thunder_Stone,
+    evolution       Eevee       Flareon,
+    evolution_stone Flareon     Fire_Stone,
+
+    evolution       Omanyte     Omastar,
+    evolution_level Omastar     40,
+
+    evolution       Kabuto      Kabutops,
+    evolution_level Kabutops    40,
+
+    evolution       Dratini     Dragonair,
+    evolution_level Dragonair   30,
+    evolution       Dragonair   Dragonite,
+    evolution_level Dragonite   55,
+}
+
+context pokemon_skillset = {
+    can_learn Bulbasaur     Tackle,
+    learns_at Bulbasaur     Tackle          1,
+    can_learn Bulbasaur     Growl,
+    learns_at Bulbasaur     Growl           1,
+    can_learn Bulbasaur     Leech_Seed,
+    learns_at Bulbasaur     Leech_Seed      7,
+    can_learn Bulbasaur     Vine_Whip,
+    learns_at Bulbasaur     Vine_Whip       13,
+    can_learn Bulbasaur     Poison_Powder,
+    learns_at Bulbasaur     Poison_Powder   20,
+    can_learn Bulbasaur     Razor_Leaf,
+    learns_at Bulbasaur     Razor_Leaf      27,
+    can_learn Bulbasaur     Growth,
+    learns_at Bulbasaur     Growth          34,
+    can_learn Bulbasaur     Sleep_Powder,
+    learns_at Bulbasaur     Sleep_Powder    41,
+    can_learn Bulbasaur     Solar_Beam,
+    learns_at Bulbasaur     Solar_Beam      48,
+    can_learn Bulbasaur     Swords_Dance,
+    can_learn Bulbasaur     Toxic,
+    can_learn Bulbasaur     Body_Slam,
+    can_learn Bulbasaur     Take_Down,
+    can_learn Bulbasaur     Double-Edge,
+    can_learn Bulbasaur     Rage,
+    can_learn Bulbasaur     Mega_Drain,
+    can_learn Bulbasaur     Mimic,
+    can_learn Bulbasaur     Double_Team,
+    can_learn Bulbasaur     Reflect,
+    can_learn Bulbasaur     Bide,
+    can_learn Bulbasaur     Rest,
+    can_learn Bulbasaur     Substitute,
+    can_learn Bulbasaur     Cut,
+
+    can_learn Ivysaur       Tackle,
+    learns_at Ivysaur       Tackle          1,
+    can_learn Ivysaur       Growl,
+    learns_at Ivysaur       Growl           1,
+    can_learn Ivysaur       Leech_Seed,
+    learns_at Ivysaur       Leech_Seed      7,
+    can_learn Ivysaur       Vine_Whip,
+    learns_at Ivysaur       Vine_Whip       13,
+    can_learn Ivysaur       Poison_Powder,
+    learns_at Ivysaur       Poison_Powder   22,
+    can_learn Ivysaur       Razor_Leaf,
+    learns_at Ivysaur       Razor_Leaf      30,
+    can_learn Ivysaur       Growth,
+    learns_at Ivysaur       Growth          38,
+    can_learn Ivysaur       Sleep_Powder,
+    learns_at Ivysaur       Sleep_Powder    46,
+    can_learn Ivysaur       Solar_Beam,
+    learns_at Ivysaur       Solar_Beam      54,
+    can_learn Ivysaur       Swords_Dance,
+    can_learn Ivysaur       Toxic,
+    can_learn Ivysaur       Body_Slam,
+    can_learn Ivysaur       Take_Down,
+    can_learn Ivysaur       Double-Edge,
+    can_learn Ivysaur       Rage,
+    can_learn Ivysaur       Mega_Drain,
+    can_learn Ivysaur       Mimic,
+    can_learn Ivysaur       Double_Team,
+    can_learn Ivysaur       Reflect,
+    can_learn Ivysaur       Bide,
+    can_learn Ivysaur       Rest,
+    can_learn Ivysaur       Substitute,
+    can_learn Ivysaur       Cut,
+
+    can_learn Venusaur      Tackle,
+    learns_at Venusaur      Tackle          1,
+    can_learn Venusaur      Growl,
+    learns_at Venusaur      Growl           1,
+    can_learn Venusaur      Leech_Seed,
+    learns_at Venusaur      Leech_Seed      7,
+    can_learn Venusaur      Vine_Whip,
+    learns_at Venusaur      Vine_Whip       13,
+    can_learn Venusaur      Poison_Powder,
+    learns_at Venusaur      Poison_Powder   22,
+    can_learn Venusaur      Razor_Leaf,
+    learns_at Venusaur      Razor_Leaf      30,
+    can_learn Venusaur      Growth,
+    learns_at Venusaur      Growth          43,
+    can_learn Venusaur      Sleep_Powder,
+    learns_at Venusaur      Sleep_Powder    55,
+    can_learn Venusaur      Solar_Beam,
+    learns_at Venusaur      Solar_Beam      65,
+    can_learn Venusaur      Swords_Dance,
+    can_learn Venusaur      Toxic,
+    can_learn Venusaur      Body_Slam,
+    can_learn Venusaur      Take_Down,
+    can_learn Venusaur      Double-Edge,
+    can_learn Venusaur      Hyper_Beam,
+    can_learn Venusaur      Rage,
+    can_learn Venusaur      Mega_Drain,
+    can_learn Venusaur      Mimic,
+    can_learn Venusaur      Double_Team,
+    can_learn Venusaur      Reflect,
+    can_learn Venusaur      Bide,
+    can_learn Venusaur      Rest,
+    can_learn Venusaur      Substitute,
+    can_learn Venusaur      Cut,
+
+    can_learn Charmander    Scratch,
+    learns_at Charmander    Scratch         1,
+    can_learn Charmander    Growl,
+    learns_at Charmander    Growl           1,
+    can_learn Charmander    Ember,
+    learns_at Charmander    Ember           9,
+    can_learn Charmander    Leer,
+    learns_at Charmander    Leer            15,
+    can_learn Charmander    Rage,
+    learns_at Charmander    Rage            22,
+    can_learn Charmander    Slash,
+    learns_at Charmander    Slash           30,
+    can_learn Charmander    Flamethrower,
+    learns_at Charmander    Flamethrower    38,
+    can_learn Charmander    Fire_Spin,
+    learns_at Charmander    Fire_Spin       46,
+    can_learn Charmander    Mega_Punch,
+    can_learn Charmander    Swords_Dance,
+    can_learn Charmander    Mega_Kick,
+    can_learn Charmander    Toxic,
+    can_learn Charmander    Body_Slam,
+    can_learn Charmander    Take_Down,
+    can_learn Charmander    Double-Edge,
+    can_learn Charmander    Submission,
+    can_learn Charmander    Counter,
+    can_learn Charmander    Seismic_Toss,
+    can_learn Charmander    Dragon_Rage,
+    can_learn Charmander    Dig,
+    can_learn Charmander    Mimic,
+    can_learn Charmander    Double_Team,
+    can_learn Charmander    Reflect,
+    can_learn Charmander    Bide,
+    can_learn Charmander    Fire_Blast,
+    can_learn Charmander    Swift,
+    can_learn Charmander    Skull_Bash,
+    can_learn Charmander    Rest,
+    can_learn Charmander    Substitute,
+    can_learn Charmander    Cut,
+    can_learn Charmander    Strength,
+
+    can_learn Charmeleon    Scratch,
+    learns_at Charmeleon    Scratch         1,
+    can_learn Charmeleon    Growl,
+    learns_at Charmeleon    Growl           1,
+    can_learn Charmeleon    Ember,
+    learns_at Charmeleon    Ember           9,
+    can_learn Charmeleon    Leer,
+    learns_at Charmeleon    Leer            15,
+    can_learn Charmeleon    Rage,
+    learns_at Charmeleon    Rage            24,
+    can_learn Charmeleon    Slash,
+    learns_at Charmeleon    Slash           33,
+    can_learn Charmeleon    Flamethrower,
+    learns_at Charmeleon    Flamethrower    42,
+    can_learn Charmeleon    Fire_Spin,
+    learns_at Charmeleon    Fire_Spin       56,
+    can_learn Charmeleon    Mega_Punch,
+    can_learn Charmeleon    Swords_Dance,
+    can_learn Charmeleon    Mega_Kick,
+    can_learn Charmeleon    Toxic,
+    can_learn Charmeleon    Body_Slam,
+    can_learn Charmeleon    Take_Down,
+    can_learn Charmeleon    Double-Edge,
+    can_learn Charmeleon    Submission,
+    can_learn Charmeleon    Counter,
+    can_learn Charmeleon    Seismic_Toss,
+    can_learn Charmeleon    Dragon_Rage,
+    can_learn Charmeleon    Dig,
+    can_learn Charmeleon    Mimic,
+    can_learn Charmeleon    Double_Team,
+    can_learn Charmeleon    Reflect,
+    can_learn Charmeleon    Bide,
+    can_learn Charmeleon    Fire_Blast,
+    can_learn Charmeleon    Swift,
+    can_learn Charmeleon    Skull_Bash,
+    can_learn Charmeleon    Rest,
+    can_learn Charmeleon    Substitute,
+    can_learn Charmeleon    Cut,
+    can_learn Charmeleon    Strength,
+
+    can_learn Charizard     Scratch,
+    learns_at Charizard     Scratch         1,
+    can_learn Charizard     Growl,
+    learns_at Charizard     Growl           1,
+    can_learn Charizard     Ember,
+    learns_at Charizard     Ember           9,
+    can_learn Charizard     Leer,
+    learns_at Charizard     Leer            15,
+    can_learn Charizard     Rage,
+    learns_at Charizard     Rage            24,
+    can_learn Charizard     Slash,
+    learns_at Charizard     Slash           36,
+    can_learn Charizard     Flamethrower,
+    learns_at Charizard     Flamethrower    46,
+    can_learn Charizard     Fire_Spin,
+    learns_at Charizard     Fire_Spin       55,
+    can_learn Charizard     Mega_Punch,
+    can_learn Charizard     Swords_Dance,
+    can_learn Charizard     Mega_Kick,
+    can_learn Charizard     Toxic,
+    can_learn Charizard     Body_Slam,
+    can_learn Charizard     Take_Down,
+    can_learn Charizard     Double-Edge,
+    can_learn Charizard     Hyper_Beam,
+    can_learn Charizard     Submission,
+    can_learn Charizard     Counter,
+    can_learn Charizard     Seismic_Toss,
+    can_learn Charizard     Dragon_Rage,
+    can_learn Charizard     Earthquake,
+    can_learn Charizard     Fissure,
+    can_learn Charizard     Dig,
+    can_learn Charizard     Mimic,
+    can_learn Charizard     Double_Team,
+    can_learn Charizard     Reflect,
+    can_learn Charizard     Bide,
+    can_learn Charizard     Fire_Blast,
+    can_learn Charizard     Swift,
+    can_learn Charizard     Skull_Bash,
+    can_learn Charizard     Rest,
+    can_learn Charizard     Substitute,
+    can_learn Charizard     Cut,
+    can_learn Charizard     Fly,
+    can_learn Charizard     Strength,
+
+    can_learn Squirtle      Tackle,
+    learns_at Squirtle      Tackle          1,
+    can_learn Squirtle      Tail_Whip,
+    learns_at Squirtle      Tail_Whip       1,
+    can_learn Squirtle      Bubble,
+    learns_at Squirtle      Bubble          8,
+    can_learn Squirtle      Water_Gun,
+    learns_at Squirtle      Water_Gun       15,
+    can_learn Squirtle      Bite,
+    learns_at Squirtle      Bite            22,
+    can_learn Squirtle      Withdraw,
+    learns_at Squirtle      Withdraw        28,
+    can_learn Squirtle      Skull_Bash,
+    learns_at Squirtle      Skull_Bash      35,
+    can_learn Squirtle      Hydro_Pump,
+    learns_at Squirtle      Hydro_Pump      42,
+    can_learn Squirtle      Mega_Punch,
+    can_learn Squirtle      Mega_Kick,
+    can_learn Squirtle      Toxic,
+    can_learn Squirtle      Body_Slam,
+    can_learn Squirtle      Take_Down,
+    can_learn Squirtle      Double-Edge,
+    can_learn Squirtle      Bubble_Beam,
+    can_learn Squirtle      Ice_Beam,
+    can_learn Squirtle      Blizzard,
+    can_learn Squirtle      Submission,
+    can_learn Squirtle      Counter,
+    can_learn Squirtle      Seismic_Toss,
+    can_learn Squirtle      Rage,
+    can_learn Squirtle      Dig,
+    can_learn Squirtle      Mimic,
+    can_learn Squirtle      Double_Team,
+    can_learn Squirtle      Reflect,
+    can_learn Squirtle      Bide,
+    can_learn Squirtle      Rest,
+    can_learn Squirtle      Substitute,
+    can_learn Squirtle      Surf,
+    can_learn Squirtle      Strength,
+
+    can_learn Wartortle     Tackle,
+    learns_at Wartortle     Tackle          1,
+    can_learn Wartortle     Tail_Whip,
+    learns_at Wartortle     Tail_Whip       1,
+    can_learn Wartortle     Bubble,
+    learns_at Wartortle     Bubble          8,
+    can_learn Wartortle     Water_Gun,
+    learns_at Wartortle     Water_Gun       15,
+    can_learn Wartortle     Bite,
+    learns_at Wartortle     Bite            24,
+    can_learn Wartortle     Withdraw,
+    learns_at Wartortle     Withdraw        31,
+    can_learn Wartortle     Skull_Bash,
+    learns_at Wartortle     Skull_Bash      39,
+    can_learn Wartortle     Hydro_Pump,
+    learns_at Wartortle     Hydro_Pump      47,
+    can_learn Wartortle     Mega_Punch,
+    can_learn Wartortle     Mega_Kick,
+    can_learn Wartortle     Toxic,
+    can_learn Wartortle     Body_Slam,
+    can_learn Wartortle     Take_Down,
+    can_learn Wartortle     Double-Edge,
+    can_learn Wartortle     Bubble_Beam,
+    can_learn Wartortle     Ice_Beam,
+    can_learn Wartortle     Blizzard,
+    can_learn Wartortle     Submission,
+    can_learn Wartortle     Counter,
+    can_learn Wartortle     Seismic_Toss,
+    can_learn Wartortle     Rage,
+    can_learn Wartortle     Dig,
+    can_learn Wartortle     Mimic,
+    can_learn Wartortle     Double_Team,
+    can_learn Wartortle     Reflect,
+    can_learn Wartortle     Bide,
+    can_learn Wartortle     Rest,
+    can_learn Wartortle     Substitute,
+    can_learn Wartortle     Surf,
+    can_learn Wartortle     Strength,
+
+    can_learn Blastoise     Tackle,
+    learns_at Blastoise     Tackle          1,
+    can_learn Blastoise     Tail_Whip,
+    learns_at Blastoise     Tail_Whip       1,
+    can_learn Blastoise     Bubble,
+    learns_at Blastoise     Bubble          8,
+    can_learn Blastoise     Water_Gun,
+    learns_at Blastoise     Water_Gun       15,
+    can_learn Blastoise     Bite,
+    learns_at Blastoise     Bite            24,
+    can_learn Blastoise     Withdraw,
+    learns_at Blastoise     Withdraw        31,
+    can_learn Blastoise     Skull_Bash,
+    learns_at Blastoise     Skull_Bash      42,
+    can_learn Blastoise     Hydro_Pump,
+    learns_at Blastoise     Hydro_Pump      52,
+    can_learn Blastoise     Mega_Punch,
+    can_learn Blastoise     Mega_Kick,
+    can_learn Blastoise     Toxic,
+    can_learn Blastoise     Body_Slam,
+    can_learn Blastoise     Take_Down,
+    can_learn Blastoise     Double-Edge,
+    can_learn Blastoise     Bubble_Beam,
+    can_learn Blastoise     Ice_Beam,
+    can_learn Blastoise     Blizzard,
+    can_learn Blastoise     Hyper_Beam,
+    can_learn Blastoise     Submission,
+    can_learn Blastoise     Counter,
+    can_learn Blastoise     Seismic_Toss,
+    can_learn Blastoise     Rage,
+    can_learn Blastoise     Earthquake,
+    can_learn Blastoise     Fissure,
+    can_learn Blastoise     Dig,
+    can_learn Blastoise     Mimic,
+    can_learn Blastoise     Double_Team,
+    can_learn Blastoise     Reflect,
+    can_learn Blastoise     Bide,
+    can_learn Blastoise     Rest,
+    can_learn Blastoise     Substitute,
+    can_learn Blastoise     Surf,
+    can_learn Blastoise     Strength
+}
+
+context move_items = {
+    hm HM01 Cut,
+    hm HM02 Fly,
+    hm HM03 Surf,
+    hm HM04 Strength,
+    hm HM05 Flash,
+
+    tm TM01 Mega_Punch,
+    tm TM02 Razor_Wind,
+    tm TM03 Swords_Dance,
+    tm TM04 Whirlwind,
+    tm TM05 Mega_Kick,
+    tm TM06 Toxic,
+    tm TM07 Horn_Drill,
+    tm TM08 Body_Slam,
+    tm TM09 Take_Down,
+    tm TM10 Double-Edge,
+    tm TM11 Bubble_Beam,
+    tm TM12 Water_Gun,
+    tm TM13 Ice_Beam,
+    tm TM14 Blizzard,
+    tm TM15 Hyper_Beam,
+    tm TM16 Pay_Day,
+    tm TM17 Submission,
+    tm TM18 Counter,
+    tm TM19 Seismic_Toss,
+    tm TM20 Rage,
+    tm TM21 Mega_Drain,
+    tm TM22 Solar_Beam,
+    tm TM23 Dragon_Rage,
+    tm TM24 Thunderbolt,
+    tm TM25 Thunder,
+    tm TM26 Earthquake,
+    tm TM27 Fissure,
+    tm TM28 Dig,
+    tm TM29 Psychic,
+    tm TM30 Teleport,
+    tm TM31 Mimic,
+    tm TM32 Double_Team,
+    tm TM33 Reflect,
+    tm TM34 Bide,
+    tm TM35 Metronome,
+    tm TM36 Self-Destruct,
+    tm TM37 Egg_Bomb,
+    tm TM38 Fire_Blast,
+    tm TM39 Swift,
+    tm TM40 Skull_Bash,
+    tm TM41 Soft-Boiled,
+    tm TM42 Dream_Eater,
+    tm TM43 Sky_Attack,
+    tm TM44 Rest,
+    tm TM45 Thunder_Wave,
+    tm TM46 Psywave,
+    tm TM47 Explosion,
+    tm TM48 Rock_Slide,
+    tm TM49 Tri_Attack,
+    tm TM50 Substitute
+}
+
+context moves = {
+    is_move_type Pound          Normal      Physical,
+    is_move_type Karate_Chop    Fighting    Physical,
+    is_move_type Double_Slap    Normal      Physical,
+    is_move_type Comet_Punch    Normal      Physical,
+    is_move_type Mega_Punch     Normal      Physical,
+    is_move_type Pay_Day        Normal      Physical,
+    is_move_type Fire_Punch     Fire        Physical,
+    is_move_type Ice_Punch      Ice         Physical,
+    is_move_type Thunder_Punch  Electric    Physical,
+    is_move_type Scratch        Normal      Physical,
+    is_move_type Vise_Grip      Normal      Physical,
+    is_move_type Guillotine     Normal      Physical,
+    is_move_type Razor_Wind     Normal      Special,
+    is_move_type Swords_Dance   Normal      Status,
+    is_move_type Cut            Normal      Physical,
+    is_move_type Gust           Flying      Special,
+    is_move_type Wing_Attack    Flying      Physical,
+    is_move_type Whirlwind      Normal      Status,
+    is_move_type Fly            Flying      Physical,
+    is_move_type Bind           Normal      Physical,
+    is_move_type Slam           Normal      Physical,
+    is_move_type Vine_Whip      Grass       Physical,
+    is_move_type Stomp          Normal      Physical,
+    is_move_type Double_Kick    Fighting    Physical,
+    is_move_type Mega_Kick      Normal      Physical,
+    is_move_type Jump_Kick      Fighting    Physical,
+    is_move_type Rolling_Kick   Fighting    Physical,
+    is_move_type Sand_Attack    Ground      Status,
+    is_move_type Headbutt       Normal      Physical,
+    is_move_type Horn_Attack    Normal      Physical,
+    is_move_type Fury_Attack    Normal      Physical,
+    is_move_type Horn_Drill     Normal      Physical,
+    is_move_type Tackle         Normal      Physical,
+    is_move_type Body_Slam      Normal      Physical,
+    is_move_type Wrap           Normal      Physical,
+    is_move_type Take_Down      Normal      Physical,
+    is_move_type Thrash         Normal      Physical,
+    is_move_type Double-Edge    Normal      Physical,
+    is_move_type Tail_Whip      Normal      Status,
+    is_move_type Poison_Sting   Poison      Physical,
+    is_move_type Twineedle      Bug         Physical,
+    is_move_type Pin_Missile    Bug         Physical,
+    is_move_type Leer           Normal      Status,
+    is_move_type Bite           Normal      Physical,
+    is_move_type Growl          Normal      Status,
+    is_move_type Roar           Normal      Status,
+    is_move_type Sing           Normal      Status,
+    is_move_type Supersonic     Normal      Status,
+    is_move_type Sonic_Boom     Normal      Special,
+    is_move_type Disable        Normal      Status,
+    is_move_type Acid           Poison      Special,
+    is_move_type Ember          Fire        Special,
+    is_move_type Flamethrower   Fire        Special,
+    is_move_type Mist           Ice         Status,
+    is_move_type Water_Gun      Water       Special,
+    is_move_type Hydro_Pump     Water       Special,
+    is_move_type Surf           Water       Special,
+    is_move_type Ice_Beam       Ice         Special,
+    is_move_type Blizzard       Ice         Special,
+    is_move_type Psybeam        Psychic     Special,
+    is_move_type Bubble_Beam    Water       Special,
+    is_move_type Aurora_Beam    Ice         Special,
+    is_move_type Hyper_Beam     Normal      Special,
+    is_move_type Peck           Flying      Physical,
+    is_move_type Drill_Peck     Flying      Physical,
+    is_move_type Submission     Fighting    Physical,
+    is_move_type Low_Kick       Fighting    Physical,
+    is_move_type Counter        Fighting    Physical,
+    is_move_type Seismic_Toss   Fighting    Physical,
+    is_move_type Strength       Normal      Physical,
+    is_move_type Absorb         Grass       Special,
+    is_move_type Mega_Drain     Grass       Special,
+    is_move_type Leech_Seed     Grass       Status,
+    is_move_type Growth         Normal      Status,
+    is_move_type Razor_Leaf     Grass       Physical,
+    is_move_type Solar_Beam     Grass       Special,
+    is_move_type Poison_Powder  Poison      Status,
+    is_move_type Stun_Spore     Grass       Status,
+    is_move_type Sleep_Powder   Grass       Status,
+    is_move_type Petal_Dance    Grass       Special,
+    is_move_type String_Shot    Bug         Status,
+    is_move_type Dragon_Rage    Dragon      Special,
+    is_move_type Fire_Spin      Fire        Special,
+    is_move_type Thunder_Shock  Electric    Special,
+    is_move_type Thunderbolt    Electric    Special,
+    is_move_type Thunder_Wave   Electric    Status,
+    is_move_type Thunder        Electric    Special,
+    is_move_type Rock_Throw     Rock        Physical,
+    is_move_type Earthquake     Ground      Physical,
+    is_move_type Fissure        Ground      Physical,
+    is_move_type Dig            Ground      Physical,
+    is_move_type Toxic          Poison      Status,
+    is_move_type Confusion      Psychic     Special,
+    is_move_type Psychic        Psychic     Special,
+    is_move_type Hypnosis       Psychic     Status,
+    is_move_type Meditate       Psychic     Status,
+    is_move_type Agility        Psychic     Status,
+    is_move_type Quick_Attack   Normal      Physical,
+    is_move_type Rage           Normal      Physical,
+    is_move_type Teleport       Psychic     Status,
+    is_move_type Night_Shade    Ghost       Special,
+    is_move_type Mimic          Normal      Status,
+    is_move_type Screech        Normal      Status,
+    is_move_type Double_Team    Normal      Status,
+    is_move_type Recover        Normal      Status,
+    is_move_type Harden         Normal      Status,
+    is_move_type Minimize       Normal      Status,
+    is_move_type Smokescreen    Normal      Status,
+    is_move_type Confuse_Ray    Ghost       Status,
+    is_move_type Withdraw       Water       Status,
+    is_move_type Defense_Curl   Normal      Status,
+    is_move_type Barrier        Psychic     Status,
+    is_move_type Light_Screen   Psychic     Status,
+    is_move_type Haze           Ice         Status,
+    is_move_type Reflect        Psychic     Status,
+    is_move_type Focus_Energy   Normal      Status,
+    is_move_type Bide           Normal      Physical,
+    is_move_type Metronome      Normal      Status,
+    is_move_type Mirror_Move    Flying      Status,
+    is_move_type Self-Destruct  Normal      Physical,
+    is_move_type Egg_Bomb       Normal      Physical,
+    is_move_type Lick           Ghost       Physical,
+    is_move_type Smog           Poison      Special,
+    is_move_type Sludge         Poison      Special,
+    is_move_type Bone_Club      Ground      Physical,
+    is_move_type Fire_Blast     Fire        Special,
+    is_move_type Waterfall      Water       Physical,
+    is_move_type Clamp          Water       Physical,
+    is_move_type Swift          Normal      Special,
+    is_move_type Skull_Bash     Normal      Physical,
+    is_move_type Spike_Cannon   Normal      Physical,
+    is_move_type Constrict      Normal      Physical,
+    is_move_type Amnesia        Psychic     Status,
+    is_move_type Kinesis        Psychic     Status,
+    is_move_type Soft-Boiled    Normal      Status,
+    is_move_type High_Jump_Kick Fighting    Physical,
+    is_move_type Glare          Normal      Status,
+    is_move_type Dream_Eater    Psychic     Special,
+    is_move_type Poison_Gas     Poison      Status,
+    is_move_type Barrage        Normal      Physical,
+    is_move_type Leech_Life     Bug         Physical,
+    is_move_type Lovely_Kiss    Normal      Status,
+    is_move_type Sky_Attack     Flying      Physical,
+    is_move_type Transform      Normal      Status,
+    is_move_type Bubble         Water       Special,
+    is_move_type Dizzy_Punch    Normal      Physical,
+    is_move_type Spore          Grass       Status,
+    is_move_type Flash          Normal      Status,
+    is_move_type Psywave        Psychic     Special,
+    is_move_type Splash         Normal      Status,
+    is_move_type Acid_Armor     Poison      Status,
+    is_move_type Crabhammer     Water       Physical,
+    is_move_type Explosion      Normal      Physical,
+    is_move_type Fury_Swipes    Normal      Physical,
+    is_move_type Bonemerang     Ground      Physical,
+    is_move_type Rest           Psychic     Status,
+    is_move_type Rock_Slide     Rock        Physical,
+    is_move_type Hyper_Fang     Normal      Physical,
+    is_move_type Sharpen        Normal      Status,
+    is_move_type Conversion     Normal      Status,
+    is_move_type Tri_Attack     Normal      Special,
+    is_move_type Super_Fang     Normal      Physical,
+    is_move_type Slash          Normal      Physical,
+    is_move_type Substitute     Normal      Status,
+}
+
+context pokemon = {
+    evolution,
+    pokemon_skillset,
+    moves
+}
+
+context world = {
+    travel,
+    placements,
+    pokemon,
+    move_items
+}
+
+context init = {
+    world,
+
+    starting_location your_house "Your very own Pokémon legend is about to unfold! A world of dreams and adventures with Pokémon awaits! Let's go!",
+
+    "\"Hello there! Welcome to the world of Pokémon! My name is Oak! People call me the Pokémon Professor! This world is inhabited by creatures called Pokémon! For some people, Pokémon are pets. Other use them for fights. Myself… I study Pokémon as a profession.\""
+}
+
+#trace _ setup init.

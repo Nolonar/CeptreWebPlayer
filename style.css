@@ -1,0 +1,181 @@
+html {
+    background-color: black;
+    color: white;
+    font-family: monospace;
+}
+
+html,
+body,
+#ceptre-window {
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+body,
+#ceptre-window {
+    margin: auto;
+    padding: 0;
+    width: 100%;
+    max-width: 50em;
+    display: flex;
+    flex-direction: column;
+}
+
+body>* {
+    margin: 20px;
+    padding: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#display {
+    overflow: auto;
+}
+
+#display p:first-child {
+    margin-top: 0;
+}
+
+#display p:last-child {
+    margin-bottom: 0;
+}
+
+#display p.player-action {
+    color: lawngreen;
+}
+
+#display p.cpu-action {
+    color: white;
+}
+
+#display pre {
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+#input-container label {
+    display: block;
+}
+
+#input-container {
+    min-height: 15em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+#input {
+    flex-grow: 2;
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+#ceptre-window {
+    position: absolute;
+    background-color: #000A;
+    padding: 20px;
+    justify-content: center;
+}
+
+#ceptre-window>div {
+    justify-content: center;
+    background-color: black;
+    border: thin solid white;
+    border-radius: 2px;
+    height: 75%;
+    margin: -20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#ceptre-code {
+    margin-bottom: 20px;
+    padding: 0.5em;
+    flex-grow: 1;
+}
+
+#ceptre-submit {
+    align-self: end;
+}
+
+#button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+#button-container>div {
+    width: 5em;
+}
+
+input[type=submit],
+input[type=button] {
+    color: white;
+    cursor: pointer;
+}
+
+input[type=submit]:hover,
+input[type=button]:hover {
+    background-color: #222;
+}
+
+input[type=submit]:disabled,
+input[type=button]:disabled {
+    cursor: default;
+    color: #222;
+    border-color: #222;
+}
+
+input[type=submit],
+input[type=submit]:hover:disabled,
+input[type=button],
+input[type=button]:hover:disabled {
+    background-color: black;
+}
+
+input[type=submit] {
+    width: 7em;
+    height: 2em;
+    border: thin solid white;
+    border-radius: 2px;
+    align-self: center;
+}
+
+.btn-close {
+    align-self: end;
+    border: none;
+    width: 44px;
+    height: 30px;
+    font-size: larger;
+    margin: -20px -20px 0 0;
+    transition: background-color 0.1s ease-out;
+    position: relative;
+    border-radius: 0 2px 0 0;
+}
+
+.btn-close::after,
+.btn-close::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    background-color: white;
+}
+
+.btn-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.btn-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.btn-close:hover {
+    background-color: red;
+}
