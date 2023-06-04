@@ -11,9 +11,8 @@ const engine = (() => {
     }
 
     async function getCeptreFiles() {
-        const cep = await get("cep");
-        return [...cep.match(/(?<=>)[^<>]*?\.cep(?=<)/g)]
-            .map(value => `cep/${value}`);
+        const list = JSON.parse(await get("cep/_examples.json"));
+        return list.map(value => `cep/${value}`);
     }
 
     function getRandomElement(array) {
