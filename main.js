@@ -11,7 +11,7 @@ const engine = (() => {
     }
 
     async function getCeptreFiles() {
-        const list = JSON.parse(await get("cep/_examples.json"));
+        const list = JSON.parse(await get("cep/_examples.txt"));
         return list.map(value => `cep/${value}`);
     }
 
