@@ -556,7 +556,7 @@ can_run:                                            pred.
 battling pokemon:                                   pred.
 
 %%%%%%%%%%%%   HP      ATK     DEF     SPD     SPC      Type 1       Type 2       Move 1       Move 2       Move 3       Move 4
-pkmn pokemon numbers numbers numbers numbers numbers pokemon_type pokemon_type pokemon_move pokemon_move pokemon_move pokemon_move
+pkmn pokemon numbers numbers numbers numbers numbers pokemon_type pokemon_type pokemon_move pokemon_move pokemon_move pokemon_move: pred.
 
 stage setup = {
     % Setup travel
