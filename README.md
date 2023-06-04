@@ -2,6 +2,8 @@
 
 A project by José Daniel Aguilera Mejía and Léonard Wyrsch.
 
+Available here: [https://nolonar.github.io/CeptreWebPlayer/](https://nolonar.github.io/CeptreWebPlayer/)
+
 ## Introduction
 
 The goal of this project is to explore [Ceptre](https://github.com/chrisamaphone/interactive-lp), a work by [Chris Martens](https://github.com/chrisamaphone) about the generation of interactives stories using linear logic. This is done by creating a web app capable of executing Ceptre code and providing a sample Ceptre file to play with.
