@@ -1,4 +1,9 @@
 const engine = (() => {
+    const CEP_FILES = [
+        "pkmn",
+        "example"
+    ].map(value => `cep/${value}.cep`);
+
     async function get(url) {
         const p = new Promise(resolve => {
             const xhttp = new XMLHttpRequest();
@@ -11,8 +16,11 @@ const engine = (() => {
     }
 
     async function getCeptreFiles() {
-        const list = JSON.parse(await get("cep/_examples.txt"));
-        return list.map(value => `cep/${value}`);
+        const cepFiles = [
+            "pkmn",
+            "example"
+        ];
+        return cepFiles.map(value => `cep/${value}.cep`);
     }
 
     function getRandomElement(array) {
@@ -23,9 +31,7 @@ const engine = (() => {
     const engine = new CeptreEngine();
 
     return new class {
-        #sampleFiles = [];
-
-        get sampleFiles() { return this.#sampleFiles; }
+        get sampleFiles() { return CEP_FILES; }
 
         get #choices() { return engine.choices; }
         set #choices(choice) { engine.makeChoice(choice); }
@@ -34,10 +40,7 @@ const engine = (() => {
         get #isHidden() { return engine.stage.isHidden; }
 
         constructor() {
-            getCeptreFiles().then(value => {
-                this.#sampleFiles = value;
-                this.loadFromFile(this.sampleFiles[0]);
-            });
+            this.loadFromFile(this.sampleFiles[0]);
         }
 
         onload() {
