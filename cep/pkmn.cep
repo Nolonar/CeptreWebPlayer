@@ -584,7 +584,7 @@ stage start = {
 qui * stage start -o stage main * player_token.
 
 stage main = {
-    "Look around":                      () -o stage looking * "You look around.".
+    "Look around":                      $at player L -o stage looking * "You look around.".
     "Talk to \[C]":                     seen_char C L * $at player L * $at C L * $gives_item C I S * has C I -o has player I * "\[S]".
     "Choose \[P]":                      seen_char C L * $at player L * $at C L * $gives_pokemon C P S * owns C P -o owns player P * "\[S]" * "You received \[P]!".
     "Pick up \[I]":                     seen_item I L * $at player L * found_in I L -o has player I * "You picked up a \[I]!".
