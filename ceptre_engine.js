@@ -220,10 +220,7 @@ const CeptreEngine = (() => {
             }
 
             transition.fixedConditions.push(currentCondition);
-            for (const atom of state) {
-                if (atom.name != currentCondition.name)
-                    continue;
-
+            for (const atom of state.filter(({ name }) => name === currentCondition.name)) {
                 const valid = atom.args.every(({ arg }, i) => {
                     if (!currentCondition.args[i])
                         throw "";

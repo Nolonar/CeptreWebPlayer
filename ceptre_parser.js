@@ -5,7 +5,7 @@ const CeptreParser = (() => {
     const blockStart = "{";
     const blockEnd = "}";
     const nameSeparator = ":";
-    const tensor = "*";
+    const tensor = " * ";
     const lolli = "-o";
     const noConsume = "$";
     const emptyAtom = "()";
