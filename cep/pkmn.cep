@@ -533,6 +533,7 @@ revert_gift_pkmn character pokemon string:          pred.
 giving_pokemon character:                           pred.
 can_learn pokemon pokemon_move:                     pred.
 learns_at pokemon pokemon_move numbers:             pred.
+revert_learn pokemon pokemon_move numbers:          pred.
 is_move_type pokemon_move pokemon_type move_type:   pred.
 is_pokemon_type pokemon pokemon_type pokemon_type:  pred.
 dmg_multiplier pokemon_type pokemon_type numbers:   pred.
@@ -577,12 +578,16 @@ stage setup = {
 
     % Setup gifts
     gift_init: gives_pokemon C P S -o giving_pokemon C * revert_gift_pkmn C P S.
+
+    % Setup moveset
+    learn_init: learns_at P M Lvl -o revert_learn P M Lvl * can_learn P M.
 } #hidden setup.
 qui * stage setup -o stage post_setup * badges 0.
 
 stage post_setup = {
     revert: route_set L1 L2 -o route L1 L2.
     revert_giving: revert_gift_pkmn C P S -o gives_pokemon C P S.
+    revert_learn: revert_learn P M Lvl -o learns_at P M Lvl.
 
     cleanup: giving_pokemon C * $giving_pokemon C -o ().
 } #hidden post_setup.
@@ -1444,23 +1449,14 @@ context pokemon_types = {
 }
 
 context pokemon_skillset = {
-    can_learn Bulbasaur     Tackle,
     learns_at Bulbasaur     Tackle          1,
-    can_learn Bulbasaur     Growl,
     learns_at Bulbasaur     Growl           1,
-    can_learn Bulbasaur     Leech_Seed,
     learns_at Bulbasaur     Leech_Seed      7,
-    can_learn Bulbasaur     Vine_Whip,
     learns_at Bulbasaur     Vine_Whip       13,
-    can_learn Bulbasaur     Poison_Powder,
     learns_at Bulbasaur     Poison_Powder   20,
-    can_learn Bulbasaur     Razor_Leaf,
     learns_at Bulbasaur     Razor_Leaf      27,
-    can_learn Bulbasaur     Growth,
     learns_at Bulbasaur     Growth          34,
-    can_learn Bulbasaur     Sleep_Powder,
     learns_at Bulbasaur     Sleep_Powder    41,
-    can_learn Bulbasaur     Solar_Beam,
     learns_at Bulbasaur     Solar_Beam      48,
     can_learn Bulbasaur     Swords_Dance,
     can_learn Bulbasaur     Toxic,
@@ -1477,23 +1473,14 @@ context pokemon_skillset = {
     can_learn Bulbasaur     Substitute,
     can_learn Bulbasaur     Cut,
 
-    can_learn Ivysaur       Tackle,
     learns_at Ivysaur       Tackle          1,
-    can_learn Ivysaur       Growl,
     learns_at Ivysaur       Growl           1,
-    can_learn Ivysaur       Leech_Seed,
     learns_at Ivysaur       Leech_Seed      7,
-    can_learn Ivysaur       Vine_Whip,
     learns_at Ivysaur       Vine_Whip       13,
-    can_learn Ivysaur       Poison_Powder,
     learns_at Ivysaur       Poison_Powder   22,
-    can_learn Ivysaur       Razor_Leaf,
     learns_at Ivysaur       Razor_Leaf      30,
-    can_learn Ivysaur       Growth,
     learns_at Ivysaur       Growth          38,
-    can_learn Ivysaur       Sleep_Powder,
     learns_at Ivysaur       Sleep_Powder    46,
-    can_learn Ivysaur       Solar_Beam,
     learns_at Ivysaur       Solar_Beam      54,
     can_learn Ivysaur       Swords_Dance,
     can_learn Ivysaur       Toxic,
@@ -1510,23 +1497,14 @@ context pokemon_skillset = {
     can_learn Ivysaur       Substitute,
     can_learn Ivysaur       Cut,
 
-    can_learn Venusaur      Tackle,
     learns_at Venusaur      Tackle          1,
-    can_learn Venusaur      Growl,
     learns_at Venusaur      Growl           1,
-    can_learn Venusaur      Leech_Seed,
     learns_at Venusaur      Leech_Seed      7,
-    can_learn Venusaur      Vine_Whip,
     learns_at Venusaur      Vine_Whip       13,
-    can_learn Venusaur      Poison_Powder,
     learns_at Venusaur      Poison_Powder   22,
-    can_learn Venusaur      Razor_Leaf,
     learns_at Venusaur      Razor_Leaf      30,
-    can_learn Venusaur      Growth,
     learns_at Venusaur      Growth          43,
-    can_learn Venusaur      Sleep_Powder,
     learns_at Venusaur      Sleep_Powder    55,
-    can_learn Venusaur      Solar_Beam,
     learns_at Venusaur      Solar_Beam      65,
     can_learn Venusaur      Swords_Dance,
     can_learn Venusaur      Toxic,
@@ -1544,21 +1522,13 @@ context pokemon_skillset = {
     can_learn Venusaur      Substitute,
     can_learn Venusaur      Cut,
 
-    can_learn Charmander    Scratch,
     learns_at Charmander    Scratch         1,
-    can_learn Charmander    Growl,
     learns_at Charmander    Growl           1,
-    can_learn Charmander    Ember,
     learns_at Charmander    Ember           9,
-    can_learn Charmander    Leer,
     learns_at Charmander    Leer            15,
-    can_learn Charmander    Rage,
     learns_at Charmander    Rage            22,
-    can_learn Charmander    Slash,
     learns_at Charmander    Slash           30,
-    can_learn Charmander    Flamethrower,
     learns_at Charmander    Flamethrower    38,
-    can_learn Charmander    Fire_Spin,
     learns_at Charmander    Fire_Spin       46,
     can_learn Charmander    Mega_Punch,
     can_learn Charmander    Swords_Dance,
@@ -1584,21 +1554,13 @@ context pokemon_skillset = {
     can_learn Charmander    Cut,
     can_learn Charmander    Strength,
 
-    can_learn Charmeleon    Scratch,
     learns_at Charmeleon    Scratch         1,
-    can_learn Charmeleon    Growl,
     learns_at Charmeleon    Growl           1,
-    can_learn Charmeleon    Ember,
     learns_at Charmeleon    Ember           9,
-    can_learn Charmeleon    Leer,
     learns_at Charmeleon    Leer            15,
-    can_learn Charmeleon    Rage,
     learns_at Charmeleon    Rage            24,
-    can_learn Charmeleon    Slash,
     learns_at Charmeleon    Slash           33,
-    can_learn Charmeleon    Flamethrower,
     learns_at Charmeleon    Flamethrower    42,
-    can_learn Charmeleon    Fire_Spin,
     learns_at Charmeleon    Fire_Spin       56,
     can_learn Charmeleon    Mega_Punch,
     can_learn Charmeleon    Swords_Dance,
@@ -1624,21 +1586,13 @@ context pokemon_skillset = {
     can_learn Charmeleon    Cut,
     can_learn Charmeleon    Strength,
 
-    can_learn Charizard     Scratch,
     learns_at Charizard     Scratch         1,
-    can_learn Charizard     Growl,
     learns_at Charizard     Growl           1,
-    can_learn Charizard     Ember,
     learns_at Charizard     Ember           9,
-    can_learn Charizard     Leer,
     learns_at Charizard     Leer            15,
-    can_learn Charizard     Rage,
     learns_at Charizard     Rage            24,
-    can_learn Charizard     Slash,
     learns_at Charizard     Slash           36,
-    can_learn Charizard     Flamethrower,
     learns_at Charizard     Flamethrower    46,
-    can_learn Charizard     Fire_Spin,
     learns_at Charizard     Fire_Spin       55,
     can_learn Charizard     Mega_Punch,
     can_learn Charizard     Swords_Dance,
@@ -1668,21 +1622,13 @@ context pokemon_skillset = {
     can_learn Charizard     Fly,
     can_learn Charizard     Strength,
 
-    can_learn Squirtle      Tackle,
     learns_at Squirtle      Tackle          1,
-    can_learn Squirtle      Tail_Whip,
     learns_at Squirtle      Tail_Whip       1,
-    can_learn Squirtle      Bubble,
     learns_at Squirtle      Bubble          8,
-    can_learn Squirtle      Water_Gun,
     learns_at Squirtle      Water_Gun       15,
-    can_learn Squirtle      Bite,
     learns_at Squirtle      Bite            22,
-    can_learn Squirtle      Withdraw,
     learns_at Squirtle      Withdraw        28,
-    can_learn Squirtle      Skull_Bash,
     learns_at Squirtle      Skull_Bash      35,
-    can_learn Squirtle      Hydro_Pump,
     learns_at Squirtle      Hydro_Pump      42,
     can_learn Squirtle      Mega_Punch,
     can_learn Squirtle      Mega_Kick,
@@ -1707,21 +1653,13 @@ context pokemon_skillset = {
     can_learn Squirtle      Surf,
     can_learn Squirtle      Strength,
 
-    can_learn Wartortle     Tackle,
     learns_at Wartortle     Tackle          1,
-    can_learn Wartortle     Tail_Whip,
     learns_at Wartortle     Tail_Whip       1,
-    can_learn Wartortle     Bubble,
     learns_at Wartortle     Bubble          8,
-    can_learn Wartortle     Water_Gun,
     learns_at Wartortle     Water_Gun       15,
-    can_learn Wartortle     Bite,
     learns_at Wartortle     Bite            24,
-    can_learn Wartortle     Withdraw,
     learns_at Wartortle     Withdraw        31,
-    can_learn Wartortle     Skull_Bash,
     learns_at Wartortle     Skull_Bash      39,
-    can_learn Wartortle     Hydro_Pump,
     learns_at Wartortle     Hydro_Pump      47,
     can_learn Wartortle     Mega_Punch,
     can_learn Wartortle     Mega_Kick,
@@ -1746,21 +1684,13 @@ context pokemon_skillset = {
     can_learn Wartortle     Surf,
     can_learn Wartortle     Strength,
 
-    can_learn Blastoise     Tackle,
     learns_at Blastoise     Tackle          1,
-    can_learn Blastoise     Tail_Whip,
     learns_at Blastoise     Tail_Whip       1,
-    can_learn Blastoise     Bubble,
     learns_at Blastoise     Bubble          8,
-    can_learn Blastoise     Water_Gun,
     learns_at Blastoise     Water_Gun       15,
-    can_learn Blastoise     Bite,
     learns_at Blastoise     Bite            24,
-    can_learn Blastoise     Withdraw,
     learns_at Blastoise     Withdraw        31,
-    can_learn Blastoise     Skull_Bash,
     learns_at Blastoise     Skull_Bash      42,
-    can_learn Blastoise     Hydro_Pump,
     learns_at Blastoise     Hydro_Pump      52,
     can_learn Blastoise     Mega_Punch,
     can_learn Blastoise     Mega_Kick,
