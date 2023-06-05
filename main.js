@@ -2,7 +2,7 @@ const engine = (() => {
     const CEP_FILES = [
         "pkmn",
         "example"
-    ].map(value => `cep/${value}.cep`);
+    ];
 
     async function get(url) {
         const p = new Promise(resolve => {
@@ -23,7 +23,7 @@ const engine = (() => {
     const engine = new CeptreEngine();
 
     return new class {
-        get sampleFiles() { return CEP_FILES; }
+        get sampleFiles() { return CEP_FILES.map(value => `cep/${value}.cep`); }
 
         get #choices() { return engine.choices; }
         set #choices(choice) { engine.makeChoice(choice); }

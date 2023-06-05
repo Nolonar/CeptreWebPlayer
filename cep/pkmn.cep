@@ -612,11 +612,11 @@ qui * stage start -o stage main.
 stage main = {
     "Look around":                      $at player L -o stage pre_looking * saw_nothing * "You look around.".
     "Talk to \[C]":                     $seen_char C L * $at player L * $at C L * $gives_item C I S * has C I -o has player I * "\[S]".
-    "Choose \[P]":                      $seen_char C L * $at player L * $at C L * $gives_pokemon C P S * owns C P * giving_pokemon C -o owns player P * pkmn P 5 20 1 1 1 1 Tackle Vine_Whip Ember Bubble * "\[S]" * "You received \[P]!".
+    "Choose \[P]":                      $seen_char C L * $at player L * $at C L * $gives_pokemon C P S * owns C P * giving_pokemon C -o owns player P * "\[S]" * "You received \[P]!".
     "Pick up \[I]":                     seen_item I L * $at player L * found_in I L -o has player I * "You picked up a \[I]!".
     "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $tm I M *  has player I * $owns player P * $pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage learn_auto.
     "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $hm I M * $has player I * $owns player P * $pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage learn_auto.
-    "Look for wild Pokémon":            $at player L * $wild_encounter L P Lvl * $seen_wild L -o stage wild_encounter.
+    "Look for wild Pokémon":            $owns player P1 * $at player L * $wild_encounter L P2 Lvl * $seen_wild L -o stage wild_encounter.
     "Move to \[L2]":                    at player L1 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K * $route_badges L1 L2 N * $badges N -o at player L2 * visited L2 * stage post_move * "You moved to \[L2]".
     "Move to \[L1]":                    at player L2 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K * $route_badges L1 L2 N * $badges N -o at player L1 * visited L1 * stage post_move * "You moved to \[L1]".
     "Fly to \[L2]":                     $can player Fly * at player L1 * $visited L2 * $flight_target L2 -o at player L2 * "You flew to \[L2].".
@@ -663,31 +663,38 @@ stage wild_encounter = {
 stage battle = {
     cleanup: player_turn -o ().
 } #hidden battle.
-qui * stage battle -o stage battle_p * player_turn.
+qui * stage battle * $owns player P -o stage battle_summary * pkmn P 5 32 1 1 1 1 Tackle Vine_Whip Ember Bubble * player_turn.
+
+stage battle_summary = {}
+qui * stage battle_summary * $pkmn P1 Lvl1 HP1 ATK1 DEF1 SPD1 SPC1 M11 M21 M31 M41
+                     * $enemy_pkmn P2 Lvl2 HP2 ATK2 DEF2 SPD2 SPC2 M12 M22 M32 M42 -o stage battle_p *
+"
+Your \[P1]: Level \[Lvl1], \[HP1] HP
+Enemy \[P2]: Level \[Lvl2], \[HP2] HP".
 
 stage battle_p = {
     "Fight": $owns player P -o stage battle_attack.
     "Item":  $has player I * $is_battle_item I -o stage battle_item.
     "PKMN":  $owns player P1 * $owns player P2 -o stage battle_change_pokemon.
     "Run":   can_run * battling P * enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage main * "You escaped.".
-} #interactive battle_p.
+} #interactive battle_p. #hidden battle_p.
 
 stage battle_attack = {
     "Cancel": $player_turn -o stage battle_p.
-    "\[M1]":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $battling P2 -o using_attack M1 P2 * damage 1 * stage calculate_damage.
-    "\[M2]":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $battling P2 -o using_attack M2 P2 * damage 1 * stage calculate_damage.
-    "\[M3]":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $battling P2 -o using_attack M3 P2 * damage 1 * stage calculate_damage.
-    "\[M4]":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $battling P2 -o using_attack M4 P2 * damage 1 * stage calculate_damage.
-} #interactive battle_attack.
+    "\[M1] (\[PT])":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $battling P2 -o using_attack M1 P2 * damage 1 * stage calculate_damage * "\[P1] used \[M1].".
+    "\[M2] (\[PT])":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $battling P2 -o using_attack M2 P2 * damage 1 * stage calculate_damage * "\[P1] used \[M2].".
+    "\[M3] (\[PT])":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $battling P2 -o using_attack M3 P2 * damage 1 * stage calculate_damage * "\[P1] used \[M3].".
+    "\[M4] (\[PT])":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $battling P2 -o using_attack M4 P2 * damage 1 * stage calculate_damage * "\[P1] used \[M4].".
+} #interactive battle_attack. #hidden battle_attack.
 
 stage battle_item = {
     "Cancel":   $player_turn -o stage battle_p.
     "Use \[I]": has player I * $is_battle_item I -o "".
-} #interactive battle_item.
+} #interactive battle_item. #hidden battle_item.
 
 stage battle_change_pokemon = {
     "Cancel":   $player_turn -o stage battle_p.
-} #interactive battle_change_pokemon.
+} #interactive battle_change_pokemon. #hidden battle_change_pokemon.
 
 stage calculate_damage = {
     calc: using_attack M P * $is_move_type M MPT MT * $is_pokemon_type P PT1 PT2 * damage DMG * $dmg_multiplier MPT PT1 Mult1 * $dmg_multiplier MPT PT2 Mult2 -o damage DMG*Mult1*Mult2.
@@ -695,30 +702,34 @@ stage calculate_damage = {
 qui * stage calculate_damage -o stage damage_comment.
 
 stage damage_comment = {
-    comment: $damage 2   -o stage resolve_attack * "It was very effective!".
-    comment: $damage 4   -o stage resolve_attack * "It was very effective!".
-    %comment: $damage 1/2 -o stage resolve_attack * "It was not very effective...".
-    %comment: $damage 1/4 -o stage resolve_attack * "It was not very effective...".
+    comment: $damage  0 -o stage resolve_attack * "It had no effect...".
+    comment: $damage  1 -o stage resolve_attack * "It was not very effective...".
+    comment: $damage  2 -o stage resolve_attack * "It was not very effective...".
+    comment: $damage  4 -o stage resolve_attack * "It was effective.".
+    comment: $damage  8 -o stage resolve_attack * "It was super effective!".
+    comment: $damage 16 -o stage resolve_attack * "It was super effective!".
 } #hidden damage_comment.
 
 stage resolve_attack = {
     resolve: player_turn * damage DMG * enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o    cpu_turn * enemy_pkmn P Lvl HP-DMG ATK DEF SPD SPC M1 M2 M3 M4 * "Enemy \[P] receives \[DMG] damage.".
     resolve:    cpu_turn * damage DMG *       pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o player_turn *       pkmn P Lvl HP-DMG ATK DEF SPD SPC M1 M2 M3 M4 * "\[P] receives \[DMG] damage.".
 } #hidden resolve_attack.
-qui * stage resolve_attack * $player_turn -o stage battle_p.
-qui * stage resolve_attack *    $cpu_turn -o stage battle_cpu.
+qui * stage resolve_attack -o stage battle_rule.
+qui * stage resolve_attack -o stage battle_rule.
 
 stage battle_cpu = {
-    M1: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $owns player P2 -o using_attack M1 P2 * damage 1 * stage calculate_damage.
-    M2: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $owns player P2 -o using_attack M2 P2 * damage 1 * stage calculate_damage.
-    M3: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $owns player P2 -o using_attack M3 P2 * damage 1 * stage calculate_damage.
-    M4: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $owns player P2 -o using_attack M4 P2 * damage 1 * stage calculate_damage.
+    M1: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $owns player P2 -o using_attack M1 P2 * damage 1 * stage calculate_damage * "Enemy \[P] uses \[M1].".
+    M2: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $owns player P2 -o using_attack M2 P2 * damage 1 * stage calculate_damage * "Enemy \[P] uses \[M2].".
+    M3: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $owns player P2 -o using_attack M3 P2 * damage 1 * stage calculate_damage * "Enemy \[P] uses \[M3].".
+    M4: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $owns player P2 -o using_attack M4 P2 * damage 1 * stage calculate_damage * "Enemy \[P] uses \[M4].".
 } #hidden battle_cpu.
 
 stage battle_rule = {
-    win:    battling P2 * enemy_pkmn P2 Lvl  0 ATK DEF SPD SPC M1 M2 M3 M4                                                                -o stage main * "Enemy \[P2] fainted!".
-    lose:   battling P2 * enemy_pkmn P2 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $pkmn P1 Lvl 0 ATK DEF SPD SPC M1 M2 M3 M4 * $owns player P1 -o stage main * "\[P1] fainted!".
+    win:    battling P2 * pkmn P1 Lvl1 HP1 ATK1 DEF1 SPD1 SPC1 M11 M21 M31 M41 * enemy_pkmn P2 Lvl2  0  ATK2 DEF2 SPD2 SPC2 M12 M22 M32 M42 -o stage main * "Enemy \[P2] fainted!".
+    lose:   battling P2 * pkmn P1 Lvl1  0  ATK1 DEF1 SPD1 SPC1 M11 M21 M31 M41 * enemy_pkmn P2 Lvl2 HP2 ATK2 DEF2 SPD2 SPC2 M12 M22 M32 M42 -o stage main * "\[P1] fainted!".
 } #hidden battle_rule.
+qui * stage battle_rule * $player_turn -o stage battle_summary.
+qui * stage battle_rule *    $cpu_turn -o stage battle_cpu.
 
 context travel = {
     flight_target   Pallet_Town,
@@ -1994,260 +2005,260 @@ context moves = {
 }
 
 context type_chart = {
-    dmg_multiplier Normal   none      1,
-    dmg_multiplier Normal   Normal    1,
-    dmg_multiplier Normal   Fighting  1,
-    dmg_multiplier Normal   Flying    1,
-    dmg_multiplier Normal   Poison    1,
-    dmg_multiplier Normal   Ground    1,
-    dmg_multiplier Normal   Rock      1/2,
-    dmg_multiplier Normal   Bug       1,
+    dmg_multiplier Normal   none      2,
+    dmg_multiplier Normal   Normal    2,
+    dmg_multiplier Normal   Fighting  2,
+    dmg_multiplier Normal   Flying    2,
+    dmg_multiplier Normal   Poison    2,
+    dmg_multiplier Normal   Ground    2,
+    dmg_multiplier Normal   Rock      1,
+    dmg_multiplier Normal   Bug       2,
     dmg_multiplier Normal   Ghost     0,
-    dmg_multiplier Normal   Fire      1,
-    dmg_multiplier Normal   Water     1,
-    dmg_multiplier Normal   Grass     1,
-    dmg_multiplier Normal   Electric  1,
-    dmg_multiplier Normal   Psychic   1,
-    dmg_multiplier Normal   Ice       1,
-    dmg_multiplier Normal   Dragon    1,
+    dmg_multiplier Normal   Fire      2,
+    dmg_multiplier Normal   Water     2,
+    dmg_multiplier Normal   Grass     2,
+    dmg_multiplier Normal   Electric  2,
+    dmg_multiplier Normal   Psychic   2,
+    dmg_multiplier Normal   Ice       2,
+    dmg_multiplier Normal   Dragon    2,
 
-    dmg_multiplier Fighting none      1,
-    dmg_multiplier Fighting Normal    2,
-    dmg_multiplier Fighting Fighting  1,
-    dmg_multiplier Fighting Flying    1/2,
-    dmg_multiplier Fighting Poison    1/2,
-    dmg_multiplier Fighting Ground    1,
-    dmg_multiplier Fighting Rock      2,
-    dmg_multiplier Fighting Bug       1/2,
+    dmg_multiplier Fighting none      2,
+    dmg_multiplier Fighting Normal    4,
+    dmg_multiplier Fighting Fighting  2,
+    dmg_multiplier Fighting Flying    1,
+    dmg_multiplier Fighting Poison    1,
+    dmg_multiplier Fighting Ground    2,
+    dmg_multiplier Fighting Rock      4,
+    dmg_multiplier Fighting Bug       1,
     dmg_multiplier Fighting Ghost     0,
-    dmg_multiplier Fighting Fire      1,
-    dmg_multiplier Fighting Water     1,
-    dmg_multiplier Fighting Grass     1,
-    dmg_multiplier Fighting Electric  1,
-    dmg_multiplier Fighting Psychic   1/2,
-    dmg_multiplier Fighting Ice       2,
-    dmg_multiplier Fighting Dragon    1,
+    dmg_multiplier Fighting Fire      2,
+    dmg_multiplier Fighting Water     2,
+    dmg_multiplier Fighting Grass     2,
+    dmg_multiplier Fighting Electric  2,
+    dmg_multiplier Fighting Psychic   1,
+    dmg_multiplier Fighting Ice       4,
+    dmg_multiplier Fighting Dragon    2,
 
-    dmg_multiplier Flying   none      1,
-    dmg_multiplier Flying   Normal    1,
-    dmg_multiplier Flying   Fighting  2,
-    dmg_multiplier Flying   Flying    1,
-    dmg_multiplier Flying   Poison    1,
-    dmg_multiplier Flying   Ground    1,
-    dmg_multiplier Flying   Rock      1/2,
-    dmg_multiplier Flying   Bug       2,
-    dmg_multiplier Flying   Ghost     1,
-    dmg_multiplier Flying   Fire      1,
-    dmg_multiplier Flying   Water     1,
-    dmg_multiplier Flying   Grass     2,
-    dmg_multiplier Flying   Electric  1/2,
-    dmg_multiplier Flying   Psychic   1,
-    dmg_multiplier Flying   Ice       1,
-    dmg_multiplier Flying   Dragon    1,
+    dmg_multiplier Flying   none      2,
+    dmg_multiplier Flying   Normal    2,
+    dmg_multiplier Flying   Fighting  4,
+    dmg_multiplier Flying   Flying    2,
+    dmg_multiplier Flying   Poison    2,
+    dmg_multiplier Flying   Ground    2,
+    dmg_multiplier Flying   Rock      1,
+    dmg_multiplier Flying   Bug       4,
+    dmg_multiplier Flying   Ghost     2,
+    dmg_multiplier Flying   Fire      2,
+    dmg_multiplier Flying   Water     2,
+    dmg_multiplier Flying   Grass     4,
+    dmg_multiplier Flying   Electric  1,
+    dmg_multiplier Flying   Psychic   2,
+    dmg_multiplier Flying   Ice       2,
+    dmg_multiplier Flying   Dragon    2,
 
-    dmg_multiplier Poison   none      1,
-    dmg_multiplier Poison   Normal    1,
-    dmg_multiplier Poison   Fighting  1,
-    dmg_multiplier Poison   Flying    1,
-    dmg_multiplier Poison   Poison    1/2,
-    dmg_multiplier Poison   Ground    1/2,
-    dmg_multiplier Poison   Rock      1/2,
-    dmg_multiplier Poison   Bug       2,
-    dmg_multiplier Poison   Ghost     1/2,
-    dmg_multiplier Poison   Fire      1,
-    dmg_multiplier Poison   Water     1,
-    dmg_multiplier Poison   Grass     2,
-    dmg_multiplier Poison   Electric  1,
-    dmg_multiplier Poison   Psychic   1,
-    dmg_multiplier Poison   Ice       1,
-    dmg_multiplier Poison   Dragon    1,
+    dmg_multiplier Poison   none      2,
+    dmg_multiplier Poison   Normal    2,
+    dmg_multiplier Poison   Fighting  2,
+    dmg_multiplier Poison   Flying    2,
+    dmg_multiplier Poison   Poison    1,
+    dmg_multiplier Poison   Ground    1,
+    dmg_multiplier Poison   Rock      1,
+    dmg_multiplier Poison   Bug       4,
+    dmg_multiplier Poison   Ghost     1,
+    dmg_multiplier Poison   Fire      2,
+    dmg_multiplier Poison   Water     2,
+    dmg_multiplier Poison   Grass     4,
+    dmg_multiplier Poison   Electric  2,
+    dmg_multiplier Poison   Psychic   2,
+    dmg_multiplier Poison   Ice       2,
+    dmg_multiplier Poison   Dragon    2,
 
-    dmg_multiplier Ground   none      1,
-    dmg_multiplier Ground   Normal    1,
-    dmg_multiplier Ground   Fighting  1,
+    dmg_multiplier Ground   none      2,
+    dmg_multiplier Ground   Normal    2,
+    dmg_multiplier Ground   Fighting  2,
     dmg_multiplier Ground   Flying    0,
-    dmg_multiplier Ground   Poison    2,
-    dmg_multiplier Ground   Ground    1,
-    dmg_multiplier Ground   Rock      2,
-    dmg_multiplier Ground   Bug       1/2,
-    dmg_multiplier Ground   Ghost     1,
-    dmg_multiplier Ground   Fire      2,
-    dmg_multiplier Ground   Water     1,
-    dmg_multiplier Ground   Grass     1/2,
-    dmg_multiplier Ground   Electric  2,
-    dmg_multiplier Ground   Psychic   1,
-    dmg_multiplier Ground   Ice       1,
-    dmg_multiplier Ground   Dragon    1,
+    dmg_multiplier Ground   Poison    4,
+    dmg_multiplier Ground   Ground    2,
+    dmg_multiplier Ground   Rock      4,
+    dmg_multiplier Ground   Bug       1,
+    dmg_multiplier Ground   Ghost     2,
+    dmg_multiplier Ground   Fire      4,
+    dmg_multiplier Ground   Water     2,
+    dmg_multiplier Ground   Grass     1,
+    dmg_multiplier Ground   Electric  4,
+    dmg_multiplier Ground   Psychic   2,
+    dmg_multiplier Ground   Ice       2,
+    dmg_multiplier Ground   Dragon    2,
 
-    dmg_multiplier Rock     none      1,
-    dmg_multiplier Rock     Normal    1,
-    dmg_multiplier Rock     Fighting  1/2,
-    dmg_multiplier Rock     Flying    2,
-    dmg_multiplier Rock     Poison    1,
-    dmg_multiplier Rock     Ground    1/2,
-    dmg_multiplier Rock     Rock      1,
-    dmg_multiplier Rock     Bug       2,
-    dmg_multiplier Rock     Ghost     1,
-    dmg_multiplier Rock     Fire      2,
-    dmg_multiplier Rock     Water     1,
-    dmg_multiplier Rock     Grass     1,
-    dmg_multiplier Rock     Electric  1,
-    dmg_multiplier Rock     Psychic   1,
-    dmg_multiplier Rock     Ice       2,
-    dmg_multiplier Rock     Dragon    1,
+    dmg_multiplier Rock     none      2,
+    dmg_multiplier Rock     Normal    2,
+    dmg_multiplier Rock     Fighting  1,
+    dmg_multiplier Rock     Flying    4,
+    dmg_multiplier Rock     Poison    2,
+    dmg_multiplier Rock     Ground    1,
+    dmg_multiplier Rock     Rock      2,
+    dmg_multiplier Rock     Bug       4,
+    dmg_multiplier Rock     Ghost     2,
+    dmg_multiplier Rock     Fire      4,
+    dmg_multiplier Rock     Water     2,
+    dmg_multiplier Rock     Grass     2,
+    dmg_multiplier Rock     Electric  2,
+    dmg_multiplier Rock     Psychic   2,
+    dmg_multiplier Rock     Ice       4,
+    dmg_multiplier Rock     Dragon    2,
 
-    dmg_multiplier Bug      none      1,
-    dmg_multiplier Bug      Normal    1,
-    dmg_multiplier Bug      Fighting  1/2,
-    dmg_multiplier Bug      Flying    1/2,
-    dmg_multiplier Bug      Poison    2,
-    dmg_multiplier Bug      Ground    1,
-    dmg_multiplier Bug      Rock      1,
-    dmg_multiplier Bug      Bug       1,
-    dmg_multiplier Bug      Ghost     1/2,
-    dmg_multiplier Bug      Fire      1/2,
-    dmg_multiplier Bug      Water     1,
-    dmg_multiplier Bug      Grass     2,
-    dmg_multiplier Bug      Electric  1,
-    dmg_multiplier Bug      Psychic   2,
-    dmg_multiplier Bug      Ice       1,
-    dmg_multiplier Bug      Dragon    1,
+    dmg_multiplier Bug      none      2,
+    dmg_multiplier Bug      Normal    2,
+    dmg_multiplier Bug      Fighting  1,
+    dmg_multiplier Bug      Flying    1,
+    dmg_multiplier Bug      Poison    4,
+    dmg_multiplier Bug      Ground    2,
+    dmg_multiplier Bug      Rock      2,
+    dmg_multiplier Bug      Bug       2,
+    dmg_multiplier Bug      Ghost     1,
+    dmg_multiplier Bug      Fire      1,
+    dmg_multiplier Bug      Water     2,
+    dmg_multiplier Bug      Grass     4,
+    dmg_multiplier Bug      Electric  2,
+    dmg_multiplier Bug      Psychic   4,
+    dmg_multiplier Bug      Ice       2,
+    dmg_multiplier Bug      Dragon    2,
 
-    dmg_multiplier Ghost    none      1,
+    dmg_multiplier Ghost    none      2,
     dmg_multiplier Ghost    Normal    0,
-    dmg_multiplier Ghost    Fighting  1,
-    dmg_multiplier Ghost    Flying    1,
-    dmg_multiplier Ghost    Poison    1,
-    dmg_multiplier Ghost    Ground    1,
-    dmg_multiplier Ghost    Rock      1,
-    dmg_multiplier Ghost    Bug       1,
-    dmg_multiplier Ghost    Ghost     2,
-    dmg_multiplier Ghost    Fire      1,
-    dmg_multiplier Ghost    Water     1,
-    dmg_multiplier Ghost    Grass     1,
-    dmg_multiplier Ghost    Electric  1,
+    dmg_multiplier Ghost    Fighting  2,
+    dmg_multiplier Ghost    Flying    2,
+    dmg_multiplier Ghost    Poison    2,
+    dmg_multiplier Ghost    Ground    2,
+    dmg_multiplier Ghost    Rock      2,
+    dmg_multiplier Ghost    Bug       2,
+    dmg_multiplier Ghost    Ghost     4,
+    dmg_multiplier Ghost    Fire      2,
+    dmg_multiplier Ghost    Water     2,
+    dmg_multiplier Ghost    Grass     2,
+    dmg_multiplier Ghost    Electric  2,
     dmg_multiplier Ghost    Psychic   0,
-    dmg_multiplier Ghost    Ice       1,
-    dmg_multiplier Ghost    Dragon    1,
+    dmg_multiplier Ghost    Ice       2,
+    dmg_multiplier Ghost    Dragon    2,
 
-    dmg_multiplier Fire     none      1,
-    dmg_multiplier Fire     Normal    1,
-    dmg_multiplier Fire     Fighting  1,
-    dmg_multiplier Fire     Flying    1,
-    dmg_multiplier Fire     Poison    1,
-    dmg_multiplier Fire     Ground    1,
-    dmg_multiplier Fire     Rock      1/2,
-    dmg_multiplier Fire     Bug       2,
-    dmg_multiplier Fire     Ghost     1,
-    dmg_multiplier Fire     Fire      1/2,
-    dmg_multiplier Fire     Water     1/2,
-    dmg_multiplier Fire     Grass     2,
-    dmg_multiplier Fire     Electric  1,
-    dmg_multiplier Fire     Psychic   1,
-    dmg_multiplier Fire     Ice       2,
-    dmg_multiplier Fire     Dragon    1/2,
+    dmg_multiplier Fire     none      2,
+    dmg_multiplier Fire     Normal    2,
+    dmg_multiplier Fire     Fighting  2,
+    dmg_multiplier Fire     Flying    2,
+    dmg_multiplier Fire     Poison    2,
+    dmg_multiplier Fire     Ground    2,
+    dmg_multiplier Fire     Rock      1,
+    dmg_multiplier Fire     Bug       4,
+    dmg_multiplier Fire     Ghost     2,
+    dmg_multiplier Fire     Fire      1,
+    dmg_multiplier Fire     Water     1,
+    dmg_multiplier Fire     Grass     4,
+    dmg_multiplier Fire     Electric  2,
+    dmg_multiplier Fire     Psychic   2,
+    dmg_multiplier Fire     Ice       4,
+    dmg_multiplier Fire     Dragon    1,
 
-    dmg_multiplier Water    none      1,
-    dmg_multiplier Water    Normal    1,
-    dmg_multiplier Water    Fighting  1,
-    dmg_multiplier Water    Flying    1,
-    dmg_multiplier Water    Poison    1,
-    dmg_multiplier Water    Ground    2,
-    dmg_multiplier Water    Rock      2,
-    dmg_multiplier Water    Bug       1,
-    dmg_multiplier Water    Ghost     1,
-    dmg_multiplier Water    Fire      2,
-    dmg_multiplier Water    Water     1/2,
-    dmg_multiplier Water    Grass     1/2,
-    dmg_multiplier Water    Electric  1,
-    dmg_multiplier Water    Psychic   1,
-    dmg_multiplier Water    Ice       1,
-    dmg_multiplier Water    Dragon    1/2,
+    dmg_multiplier Water    none      2,
+    dmg_multiplier Water    Normal    2,
+    dmg_multiplier Water    Fighting  2,
+    dmg_multiplier Water    Flying    2,
+    dmg_multiplier Water    Poison    2,
+    dmg_multiplier Water    Ground    4,
+    dmg_multiplier Water    Rock      4,
+    dmg_multiplier Water    Bug       2,
+    dmg_multiplier Water    Ghost     2,
+    dmg_multiplier Water    Fire      4,
+    dmg_multiplier Water    Water     1,
+    dmg_multiplier Water    Grass     1,
+    dmg_multiplier Water    Electric  2,
+    dmg_multiplier Water    Psychic   2,
+    dmg_multiplier Water    Ice       2,
+    dmg_multiplier Water    Dragon    1,
 
-    dmg_multiplier Grass    none      1,
-    dmg_multiplier Grass    Normal    1,
-    dmg_multiplier Grass    Fighting  1,
-    dmg_multiplier Grass    Flying    1/2,
-    dmg_multiplier Grass    Poison    1/2,
-    dmg_multiplier Grass    Ground    2,
-    dmg_multiplier Grass    Rock      2,
-    dmg_multiplier Grass    Bug       1/2,
-    dmg_multiplier Grass    Ghost     1,
-    dmg_multiplier Grass    Fire      1/2,
-    dmg_multiplier Grass    Water     2,
-    dmg_multiplier Grass    Grass     1/2,
-    dmg_multiplier Grass    Electric  1,
-    dmg_multiplier Grass    Psychic   1,
-    dmg_multiplier Grass    Ice       1,
-    dmg_multiplier Grass    Dragon    1/2,
+    dmg_multiplier Grass    none      2,
+    dmg_multiplier Grass    Normal    2,
+    dmg_multiplier Grass    Fighting  2,
+    dmg_multiplier Grass    Flying    1,
+    dmg_multiplier Grass    Poison    1,
+    dmg_multiplier Grass    Ground    4,
+    dmg_multiplier Grass    Rock      4,
+    dmg_multiplier Grass    Bug       1,
+    dmg_multiplier Grass    Ghost     2,
+    dmg_multiplier Grass    Fire      1,
+    dmg_multiplier Grass    Water     4,
+    dmg_multiplier Grass    Grass     1,
+    dmg_multiplier Grass    Electric  2,
+    dmg_multiplier Grass    Psychic   2,
+    dmg_multiplier Grass    Ice       2,
+    dmg_multiplier Grass    Dragon    1,
 
-    dmg_multiplier Electric none      1,
-    dmg_multiplier Electric Normal    1,
-    dmg_multiplier Electric Fighting  1,
-    dmg_multiplier Electric Flying    2,
-    dmg_multiplier Electric Poison    1,
+    dmg_multiplier Electric none      2,
+    dmg_multiplier Electric Normal    2,
+    dmg_multiplier Electric Fighting  2,
+    dmg_multiplier Electric Flying    4,
+    dmg_multiplier Electric Poison    2,
     dmg_multiplier Electric Ground    0,
-    dmg_multiplier Electric Rock      1,
-    dmg_multiplier Electric Bug       1,
-    dmg_multiplier Electric Ghost     1,
-    dmg_multiplier Electric Fire      1,
-    dmg_multiplier Electric Water     2,
-    dmg_multiplier Electric Grass     1/2,
-    dmg_multiplier Electric Electric  1/2,
-    dmg_multiplier Electric Psychic   1,
-    dmg_multiplier Electric Ice       1,
-    dmg_multiplier Electric Dragon    1/2,
+    dmg_multiplier Electric Rock      2,
+    dmg_multiplier Electric Bug       2,
+    dmg_multiplier Electric Ghost     2,
+    dmg_multiplier Electric Fire      2,
+    dmg_multiplier Electric Water     4,
+    dmg_multiplier Electric Grass     1,
+    dmg_multiplier Electric Electric  1,
+    dmg_multiplier Electric Psychic   2,
+    dmg_multiplier Electric Ice       2,
+    dmg_multiplier Electric Dragon    1,
 
-    dmg_multiplier Psychic  none      1,
-    dmg_multiplier Psychic  Normal    1,
-    dmg_multiplier Psychic  Fighting  2,
-    dmg_multiplier Psychic  Flying    1,
-    dmg_multiplier Psychic  Poison    2,
-    dmg_multiplier Psychic  Ground    1,
-    dmg_multiplier Psychic  Rock      1,
-    dmg_multiplier Psychic  Bug       1,
-    dmg_multiplier Psychic  Ghost     1,
-    dmg_multiplier Psychic  Fire      1,
-    dmg_multiplier Psychic  Water     1,
-    dmg_multiplier Psychic  Grass     1,
-    dmg_multiplier Psychic  Electric  1,
-    dmg_multiplier Psychic  Psychic   1/2,
-    dmg_multiplier Psychic  Ice       1,
-    dmg_multiplier Psychic  Dragon    1,
+    dmg_multiplier Psychic  none      2,
+    dmg_multiplier Psychic  Normal    2,
+    dmg_multiplier Psychic  Fighting  4,
+    dmg_multiplier Psychic  Flying    2,
+    dmg_multiplier Psychic  Poison    4,
+    dmg_multiplier Psychic  Ground    2,
+    dmg_multiplier Psychic  Rock      2,
+    dmg_multiplier Psychic  Bug       2,
+    dmg_multiplier Psychic  Ghost     2,
+    dmg_multiplier Psychic  Fire      2,
+    dmg_multiplier Psychic  Water     2,
+    dmg_multiplier Psychic  Grass     2,
+    dmg_multiplier Psychic  Electric  2,
+    dmg_multiplier Psychic  Psychic   1,
+    dmg_multiplier Psychic  Ice       2,
+    dmg_multiplier Psychic  Dragon    2,
 
-    dmg_multiplier Ice      none      1,
-    dmg_multiplier Ice      Normal    1,
-    dmg_multiplier Ice      Fighting  1,
-    dmg_multiplier Ice      Flying    2,
-    dmg_multiplier Ice      Poison    1,
-    dmg_multiplier Ice      Ground    2,
-    dmg_multiplier Ice      Rock      1,
-    dmg_multiplier Ice      Bug       1,
-    dmg_multiplier Ice      Ghost     1,
-    dmg_multiplier Ice      Fire      1,
-    dmg_multiplier Ice      Water     1/2,
-    dmg_multiplier Ice      Grass     2,
-    dmg_multiplier Ice      Electric  1,
-    dmg_multiplier Ice      Psychic   1,
-    dmg_multiplier Ice      Ice       1/2,
-    dmg_multiplier Ice      Dragon    2,
+    dmg_multiplier Ice      none      2,
+    dmg_multiplier Ice      Normal    2,
+    dmg_multiplier Ice      Fighting  2,
+    dmg_multiplier Ice      Flying    4,
+    dmg_multiplier Ice      Poison    2,
+    dmg_multiplier Ice      Ground    4,
+    dmg_multiplier Ice      Rock      2,
+    dmg_multiplier Ice      Bug       2,
+    dmg_multiplier Ice      Ghost     2,
+    dmg_multiplier Ice      Fire      2,
+    dmg_multiplier Ice      Water     1,
+    dmg_multiplier Ice      Grass     4,
+    dmg_multiplier Ice      Electric  2,
+    dmg_multiplier Ice      Psychic   2,
+    dmg_multiplier Ice      Ice       1,
+    dmg_multiplier Ice      Dragon    4,
 
-    dmg_multiplier Dragon   none      1,
-    dmg_multiplier Dragon   Normal    1,
-    dmg_multiplier Dragon   Fighting  1,
-    dmg_multiplier Dragon   Flying    1,
-    dmg_multiplier Dragon   Poison    1,
-    dmg_multiplier Dragon   Ground    1,
-    dmg_multiplier Dragon   Rock      1,
-    dmg_multiplier Dragon   Bug       1,
-    dmg_multiplier Dragon   Ghost     1,
-    dmg_multiplier Dragon   Fire      1,
-    dmg_multiplier Dragon   Water     1,
-    dmg_multiplier Dragon   Grass     1,
-    dmg_multiplier Dragon   Electric  1,
-    dmg_multiplier Dragon   Psychic   1,
-    dmg_multiplier Dragon   Ice       1,
-    dmg_multiplier Dragon   Dragon    2
+    dmg_multiplier Dragon   none      2,
+    dmg_multiplier Dragon   Normal    2,
+    dmg_multiplier Dragon   Fighting  2,
+    dmg_multiplier Dragon   Flying    2,
+    dmg_multiplier Dragon   Poison    2,
+    dmg_multiplier Dragon   Ground    2,
+    dmg_multiplier Dragon   Rock      2,
+    dmg_multiplier Dragon   Bug       2,
+    dmg_multiplier Dragon   Ghost     2,
+    dmg_multiplier Dragon   Fire      2,
+    dmg_multiplier Dragon   Water     2,
+    dmg_multiplier Dragon   Grass     2,
+    dmg_multiplier Dragon   Electric  2,
+    dmg_multiplier Dragon   Psychic   2,
+    dmg_multiplier Dragon   Ice       2,
+    dmg_multiplier Dragon   Dragon    4
 }
 
 context pokemon = {
