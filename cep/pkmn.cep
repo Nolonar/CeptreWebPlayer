@@ -6,6 +6,7 @@ Bill:               character.
 bike_shop_owner:    character.
 
 pokemon_type: type.
+None:       pokemon_type.
 Normal:     pokemon_type.
 Fighting:   pokemon_type.
 Flying:     pokemon_type.
@@ -533,9 +534,11 @@ giving_pokemon character:                           pred.
 can_learn pokemon pokemon_move:                     pred.
 learns_at pokemon pokemon_move numbers:             pred.
 is_move_type pokemon_move pokemon_type move_type:   pred.
+is_pokemon_type pokemon pokemon_type pokemon_type:  pred.
 evolution pokemon pokemon:                          pred.
 evolution_level pokemon numbers:                    pred.
 evolution_stone pokemon item:                       pred.
+evolution_trade pokemon:                            pred.
 tm item pokemon_move:                               pred.
 hm item pokemon_move:                               pred.
 wild_encounter location pokemon numbers:            pred.
@@ -561,8 +564,8 @@ knows character knowledge:                          pred.
 can_run:                                            pred.
 battling pokemon:                                   pred.
 
-%%%%%%%%%%%%   HP      ATK     DEF     SPD     SPC      Type 1       Type 2       Move 1       Move 2       Move 3       Move 4
-pkmn pokemon numbers numbers numbers numbers numbers pokemon_type pokemon_type pokemon_move pokemon_move pokemon_move pokemon_move: pred.
+%%%%%%%%%%%%   HP      ATK     DEF     SPD     SPC      Move 1       Move 2       Move 3       Move 4
+pkmn pokemon numbers numbers numbers numbers numbers pokemon_move pokemon_move pokemon_move pokemon_move: pred.
 
 stage setup = {
     % Setup travel
@@ -600,8 +603,8 @@ stage main = {
     "Talk to \[C]":                     $seen_char C L * $at player L * $at C L * $gives_item C I S * has C I -o has player I * "\[S]".
     "Choose \[P]":                      $seen_char C L * $at player L * $at C L * $gives_pokemon C P S * owns C P * giving_pokemon C -o owns player P * "\[S]" * "You received \[P]!".
     "Pick up \[I]":                     seen_item I L * $at player L * found_in I L -o has player I * "You picked up a \[I]!".
-    "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $tm I M * has player I * $pkmn P HP ATK DEF SPD SPC T1 T2 M1 M2 M3 M4 -o stage learn_auto.
-    "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $hm I M * $has player I * owns player P * $pkmn P HP ATK DEF SPD SPC T1 T2 M1 M2 M3 M4 -o stage learn_auto.
+    "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $tm I M * has player I * $pkmn P HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage learn_auto.
+    "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $hm I M * $has player I * owns player P * $pkmn P HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage learn_auto.
     "Look for wild Pokémon":            $at player L * $wild_encounter L P Lvl * $seen_wild L -o stage wild_encounter.
     "Move to \[L2]":                    at player L1 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K * $route_badges L1 L2 N * $badges N -o at player L2 * visited L2 * stage post_move * "You moved to \[L2]".
     "Move to \[L1]":                    at player L2 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K * $route_badges L1 L2 N * $badges N -o at player L1 * visited L1 * stage post_move * "You moved to \[L1]".
@@ -659,8 +662,8 @@ stage battle_p = {
 } #interactive battle.
 
 stage battle_rule = {
-    win:    battling P2 * $pkmn P2 0 ATK DEF SPD SPC T1 T2 M1 M2 M3 M4                   -o stage main * "Enemy \[P] fainted!".
-    lose:   battling P2 * $pkmn P1 0 ATK DEF SPD SPC T1 T2 M1 M2 M3 M4 * $owns player P1 -o stage main * "\[P] fainted! You lose.".
+    win:    battling P2 * $pkmn P2 0 ATK DEF SPD SPC M1 M2 M3 M4                   -o stage main * "Enemy \[P] fainted!".
+    lose:   battling P2 * $pkmn P1 0 ATK DEF SPD SPC M1 M2 M3 M4 * $owns player P1 -o stage main * "\[P] fainted! You lose.".
 } #hidden battle_rule.
 
 context travel = {
@@ -1113,12 +1116,12 @@ context evolution = {
     evolution       Abra        Kadabra,
     evolution_level Kadabra     16,
     evolution       Kadabra     Alakazam,
-    evolution_level Alakazam    36,
+    evolution_trade Alakazam,
 
     evolution       Machop      Machoke,
     evolution_level Machoke     28,
     evolution       Machoke     Machamp,
-    evolution_level Machamp     48,
+    evolution_trade Machamp,
 
     evolution       Bellsprout  Weepinbell,
     evolution_level Weepinbell  21,
@@ -1131,7 +1134,7 @@ context evolution = {
     evolution       Geodude     Graveler,
     evolution_level Graveler    25,
     evolution       Graveler    Golem,
-    evolution_level Golem       45,
+    evolution_trade Golem,
 
     evolution       Ponyta      Rapidash,
     evolution_level Rapidash    40,
@@ -1157,7 +1160,7 @@ context evolution = {
     evolution       Gastly      Haunter,
     evolution_level Haunter     25,
     evolution       Haunter     Gengar,
-    evolution_level Gengar      45,
+    evolution_trade Gengar,
 
     evolution       Drowsee     Hypno,
     evolution_level Drowsee     26,
@@ -1209,6 +1212,234 @@ context evolution = {
     evolution_level Dragonair   30,
     evolution       Dragonair   Dragonite,
     evolution_level Dragonite   55,
+}
+
+context pokemon_types = {
+    is_pokemon_type Bulbasaur   Grass       Poison,
+    is_pokemon_type Ivysaur     Grass       Poison,
+    is_pokemon_type Venusaur    Grass       Poison,
+
+    is_pokemon_type Charmander  Fire        None,
+    is_pokemon_type Charmeleon  Fire        None,
+    is_pokemon_type Charizard   Fire        Flying,
+
+    is_pokemon_type Squirtle    Water       None,
+    is_pokemon_type Wartortle   Water       None,
+    is_pokemon_type Blastoise   Water       None,
+
+    is_pokemon_type Caterpie    Bug         None,
+    is_pokemon_type Metapod     Bug         None,
+    is_pokemon_type Butterfree  Bug         Flying,
+
+    is_pokemon_type Weedle      Bug         Poison,
+    is_pokemon_type Kakuna      Bug         Poison,
+    is_pokemon_type Beedrill    Bug         Poison,
+
+    is_pokemon_type Pidgey      Normal      Flying,
+    is_pokemon_type Pidgeotto   Normal      Flying,
+    is_pokemon_type Pidgeot     Normal      Flying,
+
+    is_pokemon_type Rattata     Normal      None,
+    is_pokemon_type Raticate    Normal      None,
+
+    is_pokemon_type Spearow     Normal      Flying,
+    is_pokemon_type Fearow      Normal      Flying,
+
+    is_pokemon_type Ekans       Poison      None,
+    is_pokemon_type Arbok       Poison      None,
+
+    is_pokemon_type Pikachu     Electric    None,
+    is_pokemon_type Raichu      Electric    None,
+
+    is_pokemon_type Sandshrew   Ground      None,
+    is_pokemon_type Sandslash   Ground      None,
+
+    is_pokemon_type Nidoran♀    Poison      None,
+    is_pokemon_type Nidorina    Poison      None,
+    is_pokemon_type Nidoqueen   Poison      Ground,
+
+    is_pokemon_type Nidoran♂    Poison      Ground,
+    is_pokemon_type Nidorino    Poison      Ground,
+    is_pokemon_type Nidoking    Poison      Ground,
+
+    is_pokemon_type Clefairy    Normal      None,
+    is_pokemon_type Clefable    Normal      None,
+
+    is_pokemon_type Vulpix      Fire        None,
+    is_pokemon_type Ninetails   Fire        None,
+
+    is_pokemon_type Jigglypuff  Normal      None,
+    is_pokemon_type Wigglytuff  Normal      None,
+
+    is_pokemon_type Zubat       Poison      Flying,
+    is_pokemon_type Golbat      Poison      Flying,
+
+    is_pokemon_type Oddish      Grass       Poison,
+    is_pokemon_type Gloom       Grass       Poison,
+    is_pokemon_type Vileplume   Grass       Poison,
+
+    is_pokemon_type Paras       Bug         Grass,
+    is_pokemon_type Parasect    Bug         Grass,
+
+    is_pokemon_type Venonat     Bug         Poison,
+    is_pokemon_type Venomoth    Bug         Poison,
+
+    is_pokemon_type Diglett     Ground      None,
+    is_pokemon_type Dugtrio     Ground      None,
+
+    is_pokemon_type Meowth      Normal      None,
+    is_pokemon_type Persian     Normal      None,
+
+    is_pokemon_type Psyduck     Water       None,
+    is_pokemon_type Golduck     Water       None,
+
+    is_pokemon_type Mankey      Fighting    None,
+    is_pokemon_type Primeape    Fighting    None,
+
+    is_pokemon_type Growlithe   Fire        None,
+    is_pokemon_type Arcanine    Fire        None,
+
+    is_pokemon_type Poliwag     Water       None,
+    is_pokemon_type Poliwhirl   Water       None,
+    is_pokemon_type Poliwrath   Water       Fighting,
+
+    is_pokemon_type Abra        Psychic     None,
+    is_pokemon_type Kadabra     Psychic     None,
+    is_pokemon_type Alakazam    Psychic     None,
+
+    is_pokemon_type Machop      Fighting    None,
+    is_pokemon_type Machoke     Fighting    None,
+    is_pokemon_type Machamp     Fighting    None,
+
+    is_pokemon_type Bellsprout  Grass       Poison,
+    is_pokemon_type Weepinbell  Grass       Poison,
+    is_pokemon_type Victreebel  Grass       Poison,
+
+    is_pokemon_type Tentacool   Water       Poison,
+    is_pokemon_type Tentacruel  Water       Poison,
+
+    is_pokemon_type Geodude     Rock        Ground,
+    is_pokemon_type Graveler    Rock        Ground,
+    is_pokemon_type Golem       Rock        Ground,
+
+    is_pokemon_type Ponyta      Fire        None,
+    is_pokemon_type Rapidash    Fire        None,
+
+    is_pokemon_type Slowpoke    Water       Psychic,
+    is_pokemon_type Slowbro     Water       Psychic,
+
+    is_pokemon_type Magnemite   Electric    None,
+    is_pokemon_type Magneton    Electric    None,
+
+    is_pokemon_type Farfetch'd  Normal      Flying,
+
+    is_pokemon_type Doduo       Normal      Flying,
+    is_pokemon_type Dodrio      Normal      Flying,
+
+    is_pokemon_type Seel        Water       None,
+    is_pokemon_type Dewgong     Water       Ice,
+
+    is_pokemon_type Grimer      Poison      None,
+    is_pokemon_type Muk         Poison      None,
+
+    is_pokemon_type Shellder    Water       None,
+    is_pokemon_type Cloyster    Water       Ice,
+
+    is_pokemon_type Gastly      Ghost       Poison,
+    is_pokemon_type Haunter     Ghost       Poison,
+    is_pokemon_type Gengar      Ghost       Poison,
+
+    is_pokemon_type Onix        Rock        Ground,
+
+    is_pokemon_type Drowsee     Psychic     None,
+    is_pokemon_type Hypno       Psychic     None,
+
+    is_pokemon_type Krabby      Water       None,
+    is_pokemon_type Kingler     Water       None,
+
+    is_pokemon_type Voltorb     Electric    None,
+    is_pokemon_type Electrode   Electric    None,
+
+    is_pokemon_type Exeggcute   Grass       Psychic,
+    is_pokemon_type Exeggutor   Grass       Psychic,
+
+    is_pokemon_type Cubone      Ground      None,
+    is_pokemon_type Marowak     Ground      None,
+
+    is_pokemon_type Hitmonlee   Fighting    None,
+    is_pokemon_type Hitmonchan  Fighting    None,
+
+    is_pokemon_type Lickitung   Normal      None,
+
+    is_pokemon_type Koffing     Poison      None,
+    is_pokemon_type Weezing     Poison      None,
+
+    is_pokemon_type Rhyhorn     Ground      Rock,
+    is_pokemon_type Rhydon      Ground      Rock,
+
+    is_pokemon_type Chansey     Normal      None,
+
+    is_pokemon_type Tangela     Grass       None,
+
+    is_pokemon_type Kangaskhan  Normal      None,
+
+    is_pokemon_type Horsea      Water       None,
+    is_pokemon_type Seadra      Water       None,
+
+    is_pokemon_type Goldeen     Water       None,
+    is_pokemon_type Seaking     Water       None,
+
+    is_pokemon_type Staryu      Water       None,
+    is_pokemon_type Starmie     Water       Psychic,
+
+    is_pokemon_type Mr_Mime     Psychic     None,
+
+    is_pokemon_type Scyther     Bug         Flying,
+
+    is_pokemon_type Jynx        Ice         Psychic,
+
+    is_pokemon_type Electabuzz  Electric    None,
+
+    is_pokemon_type Magmar      Fire        None,
+
+    is_pokemon_type Pinsir      Bug         None,
+
+    is_pokemon_type Tauros      Normal      None,
+
+    is_pokemon_type Magikarp    Water       None,
+    is_pokemon_type Gyarados    Water       Flying,
+
+    is_pokemon_type Lapras      Water       Ice,
+
+    is_pokemon_type Ditto       Normal      None,
+
+    is_pokemon_type Eevee       Normal      None,
+    is_pokemon_type Vaporeon    Water       None,
+    is_pokemon_type Jolteon     Electric    None,
+    is_pokemon_type Flareon     Fire        None,
+
+    is_pokemon_type Porygon     Normal      None,
+
+    is_pokemon_type Omanyte     Rock        Water,
+    is_pokemon_type Omastar     Rock        Water,
+
+    is_pokemon_type Kabuto      Rock        Water,
+    is_pokemon_type Kabutops    Rock        Water,
+
+    is_pokemon_type Aerodactyl  Rock        Flying,
+
+    is_pokemon_type Snorlax     Normal      None,
+
+    is_pokemon_type Articuno    Ice         Flying,
+    is_pokemon_type Zapdos      Electric    Flying,
+    is_pokemon_type Moltres     Fire        Flying,
+
+    is_pokemon_type Dratini     Dragon      None,
+    is_pokemon_type Dragonair   Dragon      None,
+    is_pokemon_type Dragonite   Dragon      Flying,
+
+    is_pokemon_type Mewtwo      Psychic     None,
+    is_pokemon_type Mew         Psychic     None
 }
 
 context pokemon_skillset = {
@@ -1785,6 +2016,7 @@ context moves = {
 
 context pokemon = {
     evolution,
+    pokemon_types,
     pokemon_skillset,
     moves
 }
