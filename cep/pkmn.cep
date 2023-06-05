@@ -1,7 +1,8 @@
 character: type.
 player:             character.
-Bill:               character.
+your_mother:        character.
 Professor_Oak:      character.
+Bill:               character.
 bike_shop_owner:    character.
 
 pokemon_type: type.
@@ -513,8 +514,7 @@ Indigo_Plateau:         location.
 
 
 % 1 move per turn
-player_token:                                       pred.
-cpu_token:                                          pred.
+player_turn:                                        pred.
 
 % setup
 starting_location location string:                  pred.
@@ -528,6 +528,8 @@ route_set location location:                        pred.
 found_in item location:                             pred.
 gives_item character item string:                   pred.
 gives_pokemon character pokemon string:             pred.
+revert_gift_pkmn character pokemon string:          pred.
+giving_pokemon character:                           pred.
 can_learn pokemon pokemon_move:                     pred.
 learns_at pokemon pokemon_move numbers:             pred.
 is_move_type pokemon_move pokemon_type move_type:   pred.
@@ -537,12 +539,16 @@ evolution_stone pokemon item:                       pred.
 tm item pokemon_move:                               pred.
 hm item pokemon_move:                               pred.
 wild_encounter location pokemon numbers:            pred.
+is_battle_item item:                                pred.
 
 visited location:                                   pred. % Used for Fly pokemon_move.
 revert_char character location:                     pred. % Used for look_around rule.
 revert_item item location:                          pred. % Used for look_around rule.
 seen_char character location:                       pred.
 seen_item item location:                            pred.
+seen_wild location:                                 pred.
+saw_something:                                      pred.
+saw_nothing:                                        pred.
 
 gender character gender:                            pred.
 hp character numbers:                               pred.
@@ -561,14 +567,20 @@ pkmn pokemon numbers numbers numbers numbers numbers pokemon_type pokemon_type p
 stage setup = {
     % Setup travel
     route_init: route L1 L2 -o route_item L1 L2 none * route_skill L1 L2 none * route_knowledge L1 L2 none * route_set L1 L2.
-    route_item: route_item L1 L2 none * $route_item L1 L2 I -o ().
-    route_skill: route_skill L1 L2 none * $route_skill L1 L2 S -o ().
-    route_knowledge: route_knowledge L1 L2 none * $route_knowledge L1 L2 K -o ().
+    cleanup:      route_item L1 L2 none *      $route_item L1 L2 I -o ().
+    cleanup:     route_skill L1 L2 none *     $route_skill L1 L2 S -o ().
+    cleanup: route_knowledge L1 L2 none * $route_knowledge L1 L2 K -o ().
+
+    % Setup gifts
+    gift_init: gives_pokemon C P S -o giving_pokemon C * revert_gift_pkmn C P S.
 } #hidden setup.
 qui * stage setup -o stage post_setup * badges 0.
 
 stage post_setup = {
     revert: route_set L1 L2 -o route L1 L2.
+    revert_giving: revert_gift_pkmn C P S -o gives_pokemon C P S.
+
+    cleanup: giving_pokemon C * $giving_pokemon C -o ().
 } #hidden post_setup.
 qui * stage post_setup -o stage character_creator * gender player undefined * "\"First, are you a boy or a girl?\"".
 
@@ -581,34 +593,51 @@ qui * stage character_creator -o stage start * at player undefined * has player 
 stage start = {
     "Start at \[L]": at player undefined * starting_location L S -o at player L * visited L * "\[S]" * "Your adventure starts at \[L].".
 } #hidden start.
-qui * stage start -o stage main * player_token.
+qui * stage start -o stage main.
 
 stage main = {
-    "Look around":                      $at player L -o stage looking * "You look around.".
-    "Talk to \[C]":                     seen_char C L * $at player L * $at C L * $gives_item C I S * has C I -o has player I * "\[S]".
-    "Choose \[P]":                      seen_char C L * $at player L * $at C L * $gives_pokemon C P S * owns C P -o owns player P * "\[S]" * "You received \[P]!".
+    "Look around":                      $at player L -o stage pre_looking * saw_nothing * "You look around.".
+    "Talk to \[C]":                     $seen_char C L * $at player L * $at C L * $gives_item C I S * has C I -o has player I * "\[S]".
+    "Choose \[P]":                      $seen_char C L * $at player L * $at C L * $gives_pokemon C P S * owns C P * giving_pokemon C -o owns player P * "\[S]" * "You received \[P]!".
     "Pick up \[I]":                     seen_item I L * $at player L * found_in I L -o has player I * "You picked up a \[I]!".
-    "Move to \[L2]":                    at player L1 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K -o at player L2 * visited L2 * "You moved to \[L2]".
-    "Move to \[L1]":                    at player L2 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K -o at player L1 * visited L1 * "You moved to \[L1]".
-    "Fly to \[L2]":                     $can player Fly * at player L1 * $visited L2 * $flight_target L2 -o at player L2 * "You flew to \[L2].".
     "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $tm I M * has player I * $pkmn P HP ATK DEF SPD SPC T1 T2 M1 M2 M3 M4 -o stage learn_auto.
     "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $hm I M * $has player I * owns player P * $pkmn P HP ATK DEF SPD SPC T1 T2 M1 M2 M3 M4 -o stage learn_auto.
-    "Look for wild Pokémon":            $at player L * $wild_encounter L P Lvl -o stage wild_encounter.
+    "Look for wild Pokémon":            $at player L * $wild_encounter L P Lvl * $seen_wild L -o stage wild_encounter.
+    "Move to \[L2]":                    at player L1 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K * $route_badges L1 L2 N * $badges N -o at player L2 * visited L2 * stage post_move * "You moved to \[L2]".
+    "Move to \[L1]":                    at player L2 * $route L1 L2 * $route_item L1 L2 I * $has player I * $route_skill L1 L2 S * $can player S * $route_knowledge L1 L2 K * $knows player K * $route_badges L1 L2 N * $badges N -o at player L1 * visited L1 * stage post_move * "You moved to \[L1]".
+    "Fly to \[L2]":                     $can player Fly * at player L1 * $visited L2 * $flight_target L2 -o at player L2 * "You flew to \[L2].".
 } #interactive main.
+
+stage post_move = {
+    cleanup: visited L * $visited L -o ().
+} #hidden post_move.
+qui * stage post_move -o stage main.
+
+stage pre_looking = {
+    see: $at player L * $wild_encounter L P N * saw_nothing -o saw_something * seen_wild L * "It looks like there are Pokémon around.".
+} #hidden pre_looking.
+qui * stage pre_looking -o stage looking.
 
 stage looking = {
     % Remove character from world to avoid infinite loop.
-    see: $at player L * at C L -o revert_char C L * seen_char C L * "You see \[C].".
-    see: $at player L * found_in I L -o revert_item I L * seen_item I L * "You see a \[I].".
+    see: $at player L * saw_nothing * at C L          -o revert_char C L * seen_char C L * saw_something * "You see \[C].".
+    see: $at player L * saw_nothing * found_in I L    -o revert_item I L * seen_item I L * saw_something * "You see a \[I].".
 } #hidden looking.
-qui * stage looking -o stage post_looking.
+qui * stage looking * saw_nothing   -o stage main * "You don't see anything noteworthy.".
+qui * stage looking * saw_something -o stage keep_looking.
+
+stage keep_looking = {
+    see: $at player L               * at C L          -o revert_char C L * seen_char C L                 * "You see \[C].".
+    see: $at player L               * found_in I L    -o revert_item I L * seen_item I L                 * "You see a \[I].".
+} #hidden keep_looking.
+qui * stage keep_looking -o stage post_looking.
 
 stage post_looking = {
     % Restore character.
     revert: revert_char C L -o at C L.
     revert: revert_item I L -o found_in I L.
 } #hidden post_looking.
-qui * stage post_looking -o stage main * player_token.
+qui * stage post_looking -o stage main.
 
 stage learn_auto = {
 }
@@ -618,11 +647,21 @@ stage wild_encounter = {
 } #hidden wild_encounter.
 
 stage battle = {
-    "Attack": () -o stage player_attack.
-    "Use item": () -o stage use_item.
-    "Change Pokémon": () -o stage change_pokemon.
-    "Run": can_run -o stage main.
+    cleanup: player_turn -o ().
+}
+qui * stage battle -o stage battle_p * player_turn.
+
+stage battle_p = {
+    "Fight":    $player_turn * $owns player P -o stage attack_p.
+    "Item":     $player_turn * $has player none * $has player I -o stage use_item.
+    "PKMN":     $player_turn * $owns player P1 * $owns player P2 -o stage change_pokemon.
+    "Run":      player_turn * can_run -o stage main * "You escaped.".
 } #interactive battle.
+
+stage battle_rule = {
+    win:    battling P2 * $pkmn P2 0 ATK DEF SPD SPC T1 T2 M1 M2 M3 M4                   -o stage main * "Enemy \[P] fainted!".
+    lose:   battling P2 * $pkmn P1 0 ATK DEF SPD SPC T1 T2 M1 M2 M3 M4 * $owns player P1 -o stage main * "\[P] fainted! You lose.".
+} #hidden battle_rule.
 
 context travel = {
     flight_target   Pallet_Town,
@@ -950,6 +989,8 @@ context habitats = {
 
 context placements = {
     habitats,
+
+    at              your_mother     your_house,
 
     at              Professor_Oak   Professor_Oak's_lab,
     owns            Professor_Oak   Bulbasaur,
