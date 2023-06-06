@@ -6,21 +6,21 @@ const CeptreEngine = (() => {
     }
 
     return class {
-        #stages;
-        #stageRules;
-        #initialStageName;
-        #initialState;
-        #limit;
+        #stages = {};
+        #stageRules = [];
+        #initialStageName = "";
+        #initialState = [];
+        #limit = Infinity;
 
-        #currentStageName;
-        #currentState;
-        #currentTransitions;
-        #messages = [];
+        #currentStageName = "";
+        #currentState = [];
+        #currentTransitions = {};
+
+        #messageHandler = console.log;
 
         get state() { return this.#currentState; }
         get stage() { return this.#currentStage; }
         get choices() { return Object.keys(this.#currentTransitions); }
-        get messages() { return this.#messages; }
 
         get #currentStage() { return this.#stages[this.#currentStageName]; }
         get #rules() { return this.stage.rules; }
@@ -34,16 +34,23 @@ const CeptreEngine = (() => {
         }
 
         start() {
-            this.#messages = [];
             this.#currentStageName = this.#initialStageName;
-            this.#currentState = this.#initialState;
+            this.#updateState(this.#initialState);
             this.#updateTransitions();
         }
 
         makeChoice(choice) {
-            this.#messages = [];
-            this.#currentState = this.#currentTransitions[choice].state;
+            this.#updateState(this.#currentTransitions[choice].state);
             this.#updateTransitions();
+        }
+
+        onMessageAdded(callback) {
+            this.#messageHandler = callback;
+        }
+
+        #updateState(state) {
+            this.#currentState = state;
+            this.#popStrings().forEach(this.#messageHandler);
         }
 
         #getSpecialAtoms(state, detector) {
@@ -52,9 +59,9 @@ const CeptreEngine = (() => {
         }
 
         #popStrings() {
-            const atoms = this.#getSpecialAtoms(this.state, CeptreParser.isString);
-            atoms.forEach(({ arg }) => this.#messages.push(arg));
-            atoms.reverse().forEach(({ index }) => removeIndex(this.state, index));
+            const strings = this.#getSpecialAtoms(this.state, CeptreParser.isString);
+            strings.reverse().forEach(({ index }) => removeIndex(this.state, index));
+            return strings.map(({ arg }) => arg);
         }
 
         #popStage() {
@@ -68,7 +75,6 @@ const CeptreEngine = (() => {
         }
 
         #updateTransitions() {
-            this.#popStrings();
             const nextStage = this.#popStage();
             if (nextStage)
                 this.#currentStageName = nextStage;
@@ -81,7 +87,6 @@ const CeptreEngine = (() => {
                 if (!this.#changeStage(previousStates))
                     return;
 
-                this.#popStrings();
                 transitions = this.#getTransitions(this.#rules); // Try again.
             }
             this.#setCurrentTransitions(transitions);
@@ -107,8 +112,7 @@ const CeptreEngine = (() => {
             if (!transitions.length)
                 return false;
 
-            this.#currentState = transitions[0].state;
-
+            this.#updateState(transitions[0].state);
             this.#currentStageName = this.#popStage();
             return true;
         }
@@ -118,7 +122,7 @@ const CeptreEngine = (() => {
                 previousStates[this.#currentStageName] = new Set();
 
             const previousState = previousStates[this.#currentStageName];
-            const currentState = JSON.stringify(this.#currentState
+            const currentState = JSON.stringify(this.state
                 .map(({ name, args }) => [name].concat(args.map(({ arg }) => arg)).join(" "))
                 .sort());
 

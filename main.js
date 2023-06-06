@@ -33,6 +33,7 @@ const engine = (() => {
 
         constructor() {
             this.loadFromFile(this.sampleFiles[0]);
+            engine.onMessageAdded(io.print.bind(io));
         }
 
         onload() {
@@ -60,7 +61,6 @@ const engine = (() => {
 
         update() {
             this.logCurrentState();
-            engine.messages.forEach(message => io.print(message));
             if (this.#choices.length) {
                 this.#isInteractive ? this.update_playerTurn() : this.update_cpuTurn();
                 return;
@@ -105,7 +105,7 @@ const engine = (() => {
                 io.print(`> ${playerChoice}`, this.#isInteractive ? "player-action" : "cpu-action");
 
             this.#choices = playerChoice;
-            this.update();
+            requestAnimationFrame(() => this.update());
         }
     }();
 })();
