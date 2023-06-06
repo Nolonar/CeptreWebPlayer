@@ -133,7 +133,7 @@ const CeptreEngine = (() => {
             return false;
         }
 
-        #getArgumentMap({ args }) {
+        #getVariableNames({ args }) {
             const result = {};
             for (const { id, arg } of args)
                 result[id] = `${arg}`.replaceAll(/_/g, " ");
@@ -143,115 +143,114 @@ const CeptreEngine = (() => {
 
         #getTransitionName(transition) {
             const { name, hasStringName, effects } = transition;
-            const argMap = this.#getArgumentMap(transition);
-            if (hasStringName) {
-                return this.#getStringWithVarNames(name, argMap);
-            }
+            const varNames = this.#getVariableNames(transition);
+            if (hasStringName)
+                return this.#getStringWithVarNames(name, varNames);
 
             const args = effects.filter(effect => !CeptreParser.isString(effect))
                 .flatMap(({ args }) => args.map(({ arg }) => arg));
 
-            return [name].concat(args.map(arg => argMap[arg])).join(" ");
+            return [name].concat(args.map(arg => varNames[arg])).join(" ");
         }
 
-        #getStringWithVarNames(string, argMap) {
+        #getStringWithVarNames(string, varNames) {
             let result = string;
             new Set([...string.matchAll(/(?<=\\\[)\w+(?=\])/g)].map(([varName]) => varName)).forEach(varName => {
-                result = result.replaceAll(`\\[${varName}]`, argMap[varName]);
+                result = result.replaceAll(`\\[${varName}]`, varNames[varName]);
             });
             return result;
         }
 
         #getTransitions(rules) {
-            const result = [];
-            for (const { name, hasStringName, conditions, effects } of rules) {
-                const transition = {
-                    id: name,
-                    name: name,
-                    hasStringName: hasStringName,
-                    fixedConditions: [],
-                    remainingConditions: conditions.map(condition => structuredClone(condition)),
-                    effects: effects.map(effect => structuredClone(effect)),
-                    args: []
-                };
-
-                for (const { arg, type, variable } of conditions.flatMap(({ args }) => args)) {
-                    if (!this.#getTransitionArg(arg, transition.args))
-                        transition.args.push({ id: arg, arg: arg, type: type, fixed: !variable });
-                }
-                for (const { arg, type, variable } of effects.flatMap(({ args }) => args)) {
-                    if (!this.#getTransitionArg(arg, transition.args))
-                        transition.args.push({ id: arg, arg: arg, type: type, fixed: typeof variable === "boolean" ? !variable : variable });
-                }
-
-                this.#lockTransition(result, transition, this.state);
-            }
-            return result;
+            return rules.flatMap(rule => this.#getFinalTransitions(this.#getTransition(rule), this.state));
         }
 
-        #lockTransition(allTransitions, transition, state) {
-            //if no remaining conditions to fix, then the transition is possible
-            if (!transition.remainingConditions.length) {
-                for (const { arg } of transition.effects.flatMap(({ args }) => args)) {
-                    const argument = this.#getTransitionArgument(arg, transition.args);
-                    if (argument.fixed === 'expr')
-                        argument.arg = evaluate(argument.arg, transition.args);
-                }
-                for (const { name, args } of transition.effects.filter(({ name }) => !isNumPred(name)))
-                    state.push({ name: name, args: args.map(({ arg }) => this.#getTransitionArgument(arg, transition.args)) })
+        #getTransition({ name, hasStringName, conditions, effects }) {
+            const args = {};
+            conditions.flatMap(({ args }) => args).forEach(({ arg, type, variable }) => {
+                if (!(arg in args))
+                    args[arg] = { id: arg, arg: arg, type: type, fixed: !variable };
+            });
+            effects.flatMap(({ args }) => args).forEach(({ arg, type, variable }) => {
+                if (!(arg in args))
+                    args[arg] = { id: arg, arg: arg, type: type, fixed: typeof variable === "boolean" ? !variable : variable };
+            });
 
-                transition.state = state;
-                allTransitions.push(transition);
-                for (const { atom: { args: [arg] } } of this.#getSpecialAtoms(state, CeptreParser.isString)) {
-                    const argMap = this.#getArgumentMap(transition);
-                    arg.arg = this.#getStringWithVarNames(arg.arg, argMap);
-                }
-                return;
-            }
+            return {
+                id: name,
+                name: name,
+                hasStringName: hasStringName,
+                fixedConditions: [],
+                remainingConditions: conditions.map(condition => structuredClone(condition)),
+                effects: effects.map(effect => structuredClone(effect)),
+                args: Object.values(args)
+            };
+        }
+
+        #getFinalTransitions(transition, state) {
+            const argMap = this.#getArgMap(transition);
+
+            //if no remaining conditions to fix, then the transition is possible
+            if (!transition.remainingConditions.length)
+                return [this.#getFinalTransition(transition, state, argMap)];
 
             //otherwise, try to fix an element of the remaining conditions
             const currentCondition = transition.remainingConditions.pop();
-            if (isNumPred(currentCondition.name)) {
-                if (!currentCondition.args.every(({ arg }) => this.#getTransitionArgument(arg, transition.args).fixed)) {
-                    transition.remainingConditions.unshift(currentCondition)
-                    this.#lockTransition(allTransitions, transition, state)
-                } else {
-                    const argArray = currentCondition.args.map(({ arg }) => this.#getTransitionArgument(arg, transition.args));
-                    if (evaluateNumberPred(currentCondition.name, argArray[0].arg, argArray[1].arg))
-                        this.#lockTransition(allTransitions, transition, state)
-                }
-                return;
-            }
-
-            transition.fixedConditions.push(currentCondition);
-            for (const atom of state.filter(({ name }) => name === currentCondition.name)) {
-                const valid = atom.args.every(({ arg }, i) => {
-                    if (!currentCondition.args[i])
-                        throw "";
-                    const { arg: transitionArg, fixed } = this.#getTransitionArgument(currentCondition.args[i].arg, transition.args);
+            if (!isNumPred(currentCondition.name)) {
+                transition.fixedConditions.push(currentCondition);
+                return state.filter(({ name, args }) => name === currentCondition.name && args.every(({ arg }, i) => {
+                    const { arg: transitionArg, fixed } = argMap[currentCondition.args[i].arg];
                     return (arg == transitionArg) || !fixed;
-                });
-                if (valid) {
+                })).flatMap(atom => {
                     const newTransition = structuredClone(transition);
+                    const newArgMap = this.#getArgMap(newTransition);
                     const newState = state.slice(0);
                     newState.splice(newState.indexOf(atom), 1);
                     for (let i = 0; i < atom.args.length; i++) {
-                        const arg = this.#getTransitionArgument(currentCondition.args[i].arg, newTransition.args);
+                        const arg = newArgMap[currentCondition.args[i].arg];
                         arg.arg = atom.args[i].arg;
                         arg.fixed = true;
                         arg.type = atom.args[i].type;
                     }
-                    this.#lockTransition(allTransitions, newTransition, newState);
-                }
+                    return this.#getFinalTransitions(newTransition, newState);
+                });
             }
+
+            if (!currentCondition.args.every(({ arg }) => argMap[arg].fixed)) {
+                transition.remainingConditions.unshift(currentCondition);
+                return this.#getFinalTransitions(transition, state);
+            }
+
+            const argArray = currentCondition.args.map(({ arg }) => argMap[arg] || false);
+            if (evaluateNumberPred(currentCondition.name, argArray[0].arg, argArray[1].arg))
+                return this.#getFinalTransitions(transition, state);
+
+            return [];
         }
 
-        #getTransitionArg(id, args) {
-            return args.find(({ arg }) => arg === id) || false;
+        #getFinalTransition(transition, state, argMap) {
+            transition.effects.flatMap(({ args }) => args)
+                .map(({ arg }) => argMap[arg]).filter(({ fixed }) => fixed === "expr")
+                .forEach(argument => argument.arg = evaluate(argument.arg, transition.args));
+
+            transition.state = state.concat(transition.effects.filter(({ name }) => !isNumPred(name)).map(({ name, args }) => {
+                return { name: name, args: args.map(({ arg }) => argMap[arg] || false) };
+            }));
+
+            const varNames = this.#getVariableNames(transition);
+            for (const { atom: { args: [arg] } } of this.#getSpecialAtoms(transition.state, CeptreParser.isString)) {
+                arg.arg = this.#getStringWithVarNames(arg.arg, varNames);
+            }
+            return transition;
         }
 
-        #getTransitionArgument(id, args) {
-            return args.find(({ id: argId }) => argId === id) || false;
+        #getArgMap({ args }) {
+            const argMap = {};
+            args.forEach(arg => {
+                if (!(arg.id in argMap))
+                    argMap[arg.id] = arg;
+            });
+            return argMap;
         }
     };
 })();
