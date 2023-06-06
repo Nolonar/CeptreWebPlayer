@@ -26,7 +26,6 @@ const engine = (() => {
         get sampleFiles() { return CEP_FILES.map(value => `cep/${value}.cep`); }
 
         get #choices() { return engine.choices; }
-        set #choices(choice) { engine.makeChoice(choice); }
 
         get #isInteractive() { return engine.stage.isInteractive; }
         get #isHidden() { return engine.stage.isHidden; }
@@ -51,11 +50,11 @@ const engine = (() => {
             this.load(code);
         }
 
-        start() {
+        async start() {
             console.clear();
             io.clearDisplay();
             io.resetPrompt();
-            engine.start();
+            await engine.start();
             this.update();
         }
 
@@ -99,12 +98,12 @@ const engine = (() => {
             io.setChoices(this.#choices);
         }
 
-        submitPlayerChoice(playerChoice) {
+        async submitPlayerChoice(playerChoice) {
             io.disable();
             if (!this.#isHidden)
                 io.print(`> ${playerChoice}`, this.#isInteractive ? "player-action" : "cpu-action");
 
-            this.#choices = playerChoice;
+            await engine.makeChoice(playerChoice);
             this.update();
         }
     }();

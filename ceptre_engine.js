@@ -33,15 +33,15 @@ const CeptreEngine = (() => {
             this.#limit = limit;
         }
 
-        start() {
+        async start() {
             this.#currentStageName = this.#initialStageName;
             this.#updateState(this.#initialState);
-            this.#updateTransitions();
+            await this.#updateTransitions();
         }
 
-        makeChoice(choice) {
+        async makeChoice(choice) {
             this.#updateState(this.#currentTransitions[choice].state);
-            this.#updateTransitions();
+            await this.#updateTransitions();
         }
 
         onMessageAdded(callback) {
@@ -74,20 +74,20 @@ const CeptreEngine = (() => {
             return arg;
         }
 
-        #updateTransitions() {
+        async #updateTransitions() {
             const nextStage = this.#popStage();
             if (nextStage)
                 this.#currentStageName = nextStage;
 
             this.#currentTransitions = {};
-            let transitions = this.#getTransitions(this.#rules);
+            let transitions = await this.#getTransitions(this.#rules);
             const previousStates = {};
             let stageChangeCount = 0;
             while (!transitions.length && ++stageChangeCount < MAXIMUM_STAGE_CHANGES) {
-                if (!this.#changeStage(previousStates))
+                if (!await this.#changeStage(previousStates))
                     return;
 
-                transitions = this.#getTransitions(this.#rules); // Try again.
+                transitions = await this.#getTransitions(this.#rules); // Try again.
             }
             this.#setCurrentTransitions(transitions);
         }
@@ -99,7 +99,7 @@ const CeptreEngine = (() => {
             }
         }
 
-        #changeStage(previousStates) {
+        async #changeStage(previousStates) {
             if (this.#isCycleFound(previousStates))
                 return false;
 
@@ -108,7 +108,7 @@ const CeptreEngine = (() => {
             this.state.push(CeptreParser.getStageAtom(this.#currentStageName));
 
             // Execute stage rules.
-            const transitions = this.#getTransitions(this.#stageRules);
+            const transitions = await this.#getTransitions(this.#stageRules);
             if (!transitions.length)
                 return false;
 
@@ -161,7 +161,7 @@ const CeptreEngine = (() => {
             return result;
         }
 
-        #getTransitions(rules) {
+        async #getTransitions(rules) {
             return rules.flatMap(rule => this.#getFinalTransitions(this.#getTransition(rule), this.state));
         }
 
