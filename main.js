@@ -105,7 +105,7 @@ const engine = (() => {
                 io.print(`> ${playerChoice}`, this.#isInteractive ? "player-action" : "cpu-action");
 
             this.#choices = playerChoice;
-            requestAnimationFrame(() => this.update());
+            this.update();
         }
     }();
 })();
