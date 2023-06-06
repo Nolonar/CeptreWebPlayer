@@ -611,8 +611,8 @@ qui * stage start -o stage main.
 
 stage main = {
     "Look around":                      $at player L -o stage pre_looking * saw_nothing * "You look around.".
-    "Talk to \[C]":                     $seen_char C L * $at player L * $at C L * $gives_item C I S * has C I -o has player I * "\[S]".
-    "Choose \[P]":                      $seen_char C L * $at player L * $at C L * $gives_pokemon C P S * owns C P * giving_pokemon C -o owns player P * "\[S]" * "You received \[P]!".
+    "Talk to \[C]":                     $seen_char C L * $at player L * $at C L *    gives_item C I S                    -o  has player I * "\[S]" * "You received \[I]!".
+    "Choose \[P]":                      $seen_char C L * $at player L * $at C L * gives_pokemon C P S * giving_pokemon C -o owns player P * "\[S]" * "You received \[P]!".
     "Pick up \[I]":                     seen_item I L * $at player L * found_in I L -o has player I * "You picked up a \[I]!".
     "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $tm I M *  has player I * $owns player P * $pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage learn_auto.
     "Use \[I] to teach \[M] to \[P]":   $can_learn P M * $hm I M * $has player I * $owns player P * $pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage learn_auto.
@@ -676,16 +676,17 @@ stage battle_p = {
     "Fight": $owns player P -o stage battle_attack.
     "Item":  $has player I * $is_battle_item I -o stage battle_item.
     "PKMN":  $owns player P1 * $owns player P2 -o stage battle_change_pokemon.
-    "Run":   can_run * battling P * enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage main * "You escaped.".
+    "Run":   can_run * battling P * enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o stage post_battle * "You escaped.".
 } #interactive battle_p. #hidden battle_p.
 
 stage battle_attack = {
     "Cancel": $player_turn -o stage battle_p.
-    "\[M1] (\[PT])":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $battling P2 -o using_attack M1 P2 * damage 1 * stage calculate_damage * "\[P1] used \[M1].".
-    "\[M2] (\[PT])":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $battling P2 -o using_attack M2 P2 * damage 1 * stage calculate_damage * "\[P1] used \[M2].".
-    "\[M3] (\[PT])":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $battling P2 -o using_attack M3 P2 * damage 1 * stage calculate_damage * "\[P1] used \[M3].".
-    "\[M4] (\[PT])":  $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $battling P2 -o using_attack M4 P2 * damage 1 * stage calculate_damage * "\[P1] used \[M4].".
+    "\[M1] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $battling P2 -o using_attack M1 P2.
+    "\[M2] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $battling P2 -o using_attack M2 P2.
+    "\[M3] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $battling P2 -o using_attack M3 P2.
+    "\[M4] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $battling P2 -o using_attack M4 P2.
 } #interactive battle_attack. #hidden battle_attack.
+qui * stage battle_attack * $using_attack M P -o stage calculate_damage * player_turn * damage 1 * "\[P] used \[M].".
 
 stage battle_item = {
     "Cancel":   $player_turn -o stage battle_p.
@@ -697,39 +698,53 @@ stage battle_change_pokemon = {
 } #interactive battle_change_pokemon. #hidden battle_change_pokemon.
 
 stage calculate_damage = {
-    calc: using_attack M P * $is_move_type M MPT MT * $is_pokemon_type P PT1 PT2 * damage DMG * $dmg_multiplier MPT PT1 Mult1 * $dmg_multiplier MPT PT2 Mult2 -o damage DMG*Mult1*Mult2.
+    calc: $using_attack M P * $is_move_type M MPT MT * $is_pokemon_type P PT1 PT2 * damage DMG * $dmg_multiplier MPT PT1 Mult1 * $dmg_multiplier MPT PT2 Mult2 -o damage DMG*Mult1*Mult2 * stage damage_comment.
 } #hidden calculate_damage.
-qui * stage calculate_damage -o stage damage_comment.
 
 stage damage_comment = {
-    comment: $damage  0 -o stage resolve_attack * "It had no effect...".
-    comment: $damage  1 -o stage resolve_attack * "It was not very effective...".
-    comment: $damage  2 -o stage resolve_attack * "It was not very effective...".
-    comment: $damage  4 -o stage resolve_attack * "It was effective.".
-    comment: $damage  8 -o stage resolve_attack * "It was super effective!".
-    comment: $damage 16 -o stage resolve_attack * "It was super effective!".
+    comment: $damage  0 * using_attack M P -o "It had no effect..."          * "\[P] receives no damage.".
+    comment: $damage  1 * using_attack M P -o "It was not very effective..." * "\[P] receives 1 damage.".
+    comment: $damage  2 * using_attack M P -o "It was not very effective..." * "\[P] receives 2 damage.".
+    comment: $damage  4 * using_attack M P -o "It was effective."            * "\[P] receives 4 damage.".
+    comment: $damage  8 * using_attack M P -o "It was super effective!"      * "\[P] receives 8 damage.".
+    comment: $damage 16 * using_attack M P -o "It was super effective!"      * "\[P] receives 16 damage.".
 } #hidden damage_comment.
+qui * stage damage_comment -o stage resolve_attack.
 
 stage resolve_attack = {
-    resolve: player_turn * damage DMG * enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o    cpu_turn * enemy_pkmn P Lvl HP-DMG ATK DEF SPD SPC M1 M2 M3 M4 * "Enemy \[P] receives \[DMG] damage.".
-    resolve:    cpu_turn * damage DMG *       pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o player_turn *       pkmn P Lvl HP-DMG ATK DEF SPD SPC M1 M2 M3 M4 * "\[P] receives \[DMG] damage.".
+    resolve: damage 0 *    cpu_turn -o player_turn * stage battle_summary.
+    resolve: damage 0 * player_turn -o cpu_turn    * stage battle_cpu.
 } #hidden resolve_attack.
-qui * stage resolve_attack -o stage battle_rule.
-qui * stage resolve_attack -o stage battle_rule.
+qui * stage resolve_attack -o stage resolve_attack_step.
+
+stage resolve_attack_step = {
+    resolve: $player_turn * damage DMG * enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o damage DMG-1 * enemy_pkmn P Lvl HP-1 ATK DEF SPD SPC M1 M2 M3 M4 * stage battle_rule.
+    resolve:    $cpu_turn * damage DMG *       pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o damage DMG-1 *       pkmn P Lvl HP-1 ATK DEF SPD SPC M1 M2 M3 M4 * stage battle_rule.
+} #hidden resolve_attack_step.
 
 stage battle_cpu = {
-    M1: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $owns player P2 -o using_attack M1 P2 * damage 1 * stage calculate_damage * "Enemy \[P] uses \[M1].".
-    M2: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $owns player P2 -o using_attack M2 P2 * damage 1 * stage calculate_damage * "Enemy \[P] uses \[M2].".
-    M3: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $owns player P2 -o using_attack M3 P2 * damage 1 * stage calculate_damage * "Enemy \[P] uses \[M3].".
-    M4: $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $owns player P2 -o using_attack M4 P2 * damage 1 * stage calculate_damage * "Enemy \[P] uses \[M4].".
+    M1: cpu_turn * $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $owns player P2 -o using_attack M1 P2 * damage 1 * "Enemy \[P] uses \[M1].".
+    M2: cpu_turn * $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $owns player P2 -o using_attack M2 P2 * damage 1 * "Enemy \[P] uses \[M2].".
+    M3: cpu_turn * $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $owns player P2 -o using_attack M3 P2 * damage 1 * "Enemy \[P] uses \[M3].".
+    M4: cpu_turn * $enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $owns player P2 -o using_attack M4 P2 * damage 1 * "Enemy \[P] uses \[M4].".
 } #hidden battle_cpu.
+qui * stage battle_cpu -o stage calculate_damage * cpu_turn.
 
 stage battle_rule = {
-    win:    battling P2 * pkmn P1 Lvl1 HP1 ATK1 DEF1 SPD1 SPC1 M11 M21 M31 M41 * enemy_pkmn P2 Lvl2  0  ATK2 DEF2 SPD2 SPC2 M12 M22 M32 M42 -o stage main * "Enemy \[P2] fainted!".
-    lose:   battling P2 * pkmn P1 Lvl1  0  ATK1 DEF1 SPD1 SPC1 M11 M21 M31 M41 * enemy_pkmn P2 Lvl2 HP2 ATK2 DEF2 SPD2 SPC2 M12 M22 M32 M42 -o stage main * "\[P1] fainted!".
+    win:    battling P2 * pkmn P1 Lvl1 HP1 ATK1 DEF1 SPD1 SPC1 M11 M21 M31 M41 * enemy_pkmn P2 Lvl2  0  ATK2 DEF2 SPD2 SPC2 M12 M22 M32 M42 -o stage post_battle * "Enemy \[P2] fainted!".
+    lose:   battling P2 * pkmn P1 Lvl1  0  ATK1 DEF1 SPD1 SPC1 M11 M21 M31 M41 * enemy_pkmn P2 Lvl2 HP2 ATK2 DEF2 SPD2 SPC2 M12 M22 M32 M42 -o stage post_battle * "\[P1] fainted!".
 } #hidden battle_rule.
-qui * stage battle_rule * $player_turn -o stage battle_summary.
-qui * stage battle_rule *    $cpu_turn -o stage battle_cpu.
+qui * stage battle_rule -o stage resolve_attack.
+
+stage post_battle = {
+    cleanup: player_turn -o ().
+    cleanup:    cpu_turn -o ().
+    cleanup: damage DMG  -o ().
+    cleanup: battling P  -o ().
+    cleanup:       pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o ().
+    cleanup: enemy_pkmn P Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 -o ().
+} #hidden post_battle.
+qui * stage post_battle -o stage main.
 
 context travel = {
     flight_target   Pallet_Town,
@@ -1061,19 +1076,14 @@ context placements = {
     at              your_mother     your_house,
 
     at              Professor_Oak   Professor_Oak's_lab,
-    owns            Professor_Oak   Bulbasaur,
-    owns            Professor_Oak   Charmander,
-    owns            Professor_Oak   Squirtle,
     gives_pokemon   Professor_Oak   Bulbasaur   "So you want the plant Pokémon, Bulbasaur? This Pokémon is really energetic!",
     gives_pokemon   Professor_Oak   Charmander  "So you want the fire Pokémon, Charmander? This Pokémon is really energetic!",
     gives_pokemon   Professor_Oak   Squirtle    "So you want the water Pokémon, Squirtle? This Pokémon is really energetic!",
 
     at              Bill            Bill's_house,
-    has             Bill            SS_ticket,
     gives_item      Bill            SS_ticket   "Thanks for helping me out. Here, let me give you this ticket for the S.S. Anne.",
 
     at              bike_shop_owner bike_shop,
-    has             bike_shop_owner bike,
     gives_item      bike_shop_owner bike        "Here's your bike!",
 
     found_in        secret_key      Pokémon_Mansion
