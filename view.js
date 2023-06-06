@@ -124,7 +124,7 @@ const io = (() => {
             // Workaround for scrollIntoView not actually scrolling.
             setTimeout(() => {
                 html.scrollIntoView({ block: "end", behavior: "smooth", inline: "nearest" });
-            }, 0);
+            }, 100);
         }
 
         clearDisplay() {
