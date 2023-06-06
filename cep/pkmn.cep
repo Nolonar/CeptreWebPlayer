@@ -681,12 +681,12 @@ stage battle_p = {
 
 stage battle_attack = {
     "Cancel": $player_turn -o stage battle_p.
-    "\[M1] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $battling P2 -o using_attack M1 P2.
-    "\[M2] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $battling P2 -o using_attack M2 P2.
-    "\[M3] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $battling P2 -o using_attack M3 P2.
-    "\[M4] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $battling P2 -o using_attack M4 P2.
+    "\[M1] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M1 PT MT * $battling P2 -o using_attack M1 P2 * "\[P1] used \[M2].".
+    "\[M2] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M2 PT MT * $battling P2 -o using_attack M2 P2 * "\[P1] used \[M2].".
+    "\[M3] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M3 PT MT * $battling P2 -o using_attack M3 P2 * "\[P1] used \[M3].".
+    "\[M4] (\[PT])": player_turn * $owns player P1 * $pkmn P1 Lvl HP ATK DEF SPD SPC M1 M2 M3 M4 * $is_move_type M4 PT MT * $battling P2 -o using_attack M4 P2 * "\[P1] used \[M4].".
 } #interactive battle_attack. #hidden battle_attack.
-qui * stage battle_attack * $using_attack M P -o stage calculate_damage * player_turn * damage 1 * "\[P] used \[M].".
+qui * stage battle_attack -o stage calculate_damage * player_turn * damage 1.
 
 stage battle_item = {
     "Cancel":   $player_turn -o stage battle_p.
