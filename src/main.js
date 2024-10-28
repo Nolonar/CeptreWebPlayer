@@ -112,5 +112,5 @@ class MainEngine {
 }
 
 const mainEngine = new MainEngine();
-const io = new IO(mainEngine.submitPlayerChoice, mainEngine.startGame, mainEngine.load);
+const io = new IO(mainEngine.submitPlayerChoice.bind(mainEngine), mainEngine.startGame.bind(mainEngine), mainEngine.load.bind(mainEngine));
 mainEngine.start();
